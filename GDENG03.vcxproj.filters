@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="App">
+      <UniqueIdentifier>{7b023336-5a21-4a16-b5e5-ac5f93b1221d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{a25b453c-d392-40eb-85f0-59ecf01b30fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Windowing System">
+      <UniqueIdentifier>{e37412f1-6e60-4736-acab-f62a1cacae71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicsEngine">
+      <UniqueIdentifier>{a2f76e79-ecd8-4532-81bf-6ef005160d08}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="AppWindow.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Windowing System</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppWindow.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\Windowing System</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h" />
+  </ItemGroup>
+</Project>
