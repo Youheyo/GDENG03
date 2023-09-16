@@ -19,6 +19,9 @@
     <Filter Include="Engine\GraphicsEngine\DeviceContext">
       <UniqueIdentifier>{98a947a3-76e6-47dd-b73d-2406f4059b31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GraphicsEngine\VertexBuffer">
+      <UniqueIdentifier>{910d7ef5-630c-44be-b096-baf67f6b5d31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +42,9 @@
     <ClCompile Include="DeviceContext.cpp">
       <Filter>Engine\GraphicsEngine\DeviceContext</Filter>
     </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>Engine\GraphicsEngine\VertexBuffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -55,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="DeviceContext.h">
       <Filter>Engine\GraphicsEngine\DeviceContext</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>Engine\GraphicsEngine\VertexBuffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
