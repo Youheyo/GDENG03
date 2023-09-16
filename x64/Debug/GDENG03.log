@@ -1,7 +1,2 @@
 ﻿  AppWindow.cpp
-  GraphicsEngine.cpp
-  main.cpp
-  SwapChain.cpp
-  Window.cpp
-  Generating Code...
   GDENG03.vcxproj -> D:\Projects\GDENG03\x64\Debug\GDENG03.exe

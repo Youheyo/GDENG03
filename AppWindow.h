@@ -1,6 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "GraphicsEngine.h"
+#include "SwapChain.h"
+#include "DeviceContext.h"
 
 
 
