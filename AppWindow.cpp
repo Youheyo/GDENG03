@@ -5,6 +5,10 @@ struct vec3 {
 };
 
 struct vertex {
+	// vec3 startposition;
+	// vec3 endposition;
+	// color color;
+	
 	vec3 position;
 };
 
