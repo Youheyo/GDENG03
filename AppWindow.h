@@ -22,3 +22,13 @@ private:
 	SwapChain* m_swap_chain;
 	VertexBuffer* m_vb;
 };
+
+class Quad{
+
+public:
+	Quad();
+	~Quad();
+
+	void init();
+	//vertex list[4];
+};
