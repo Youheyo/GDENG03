@@ -7,8 +7,7 @@ struct vec3 {
 struct vertex {
 	// vec3 startposition;
 	// vec3 endposition;
-	// color color;
-	
+	vec3 color;
 	vec3 position;
 };
 
@@ -32,11 +31,11 @@ void AppWindow::onCreate()
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	vertex list[] = {
-		//X - Y - Z
-		{-0.5f,-0.5f,0.0f}, // POS1
-		{-0.5f,0.5f,0.0f}, // POS2
-		{ 0.5f,-0.5f,0.0f },// POS2
-		{ 0.5f,0.5f,0.0f}
+		//X - Y - Z				Color
+		{-0.5f,-0.5f,0.0f,	 	1,0,0},
+		{-0.5f,0.5f,0.0f,	 	0,1,0},
+		{ 0.5f,-0.5f,0.0f,	 	0,0,1},
+		{ 0.5f,0.5f,0.0f,	 	1,1,0}
 	};
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
@@ -45,7 +44,7 @@ void AppWindow::onCreate()
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	GraphicsEngine::get()->createShaders();
+	// GraphicsEngine::get()->createShaders();
 	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
 
@@ -54,21 +53,28 @@ void AppWindow::onCreate()
 	m_vb->load(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
 	GraphicsEngine::get()->releaseCompiledShader();	
+
+	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	
+	GraphicsEngine::get()->releaseCompiledShader();	
+
 }
 
 void AppWindow::onUpdate()
 {
 	Window::onUpdate();
 	// * Clear Render Target
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, 1, 0, 0, 1);
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, .6f, 0, 1, 1);
 
 	// * Set Viewport of rendertarget
 	RECT rc = this->getClientWindowRect();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(rc.right - rc.left, rc.bottom - rc.top);
 
 	// * Set Default Shader in Graphics Pipeline 
-	GraphicsEngine::get()->setShaders();
+	// GraphicsEngine::get()->setShaders();
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
 	// * Set Vertices of triangle to draw
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(m_vb);
@@ -85,6 +91,8 @@ void AppWindow::onDestroy()
 	Window::onDestroy();
 	m_vb->release();
 	m_swap_chain->release();
+	m_vs->release();
+	m_ps->release();
 	GraphicsEngine::get()->release();
 
 }

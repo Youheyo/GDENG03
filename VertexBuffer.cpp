@@ -44,7 +44,7 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 		{
 			"COLOR", 
 			0,
-			DXGI_FORMAT_R32G32B32A32_FLOAT, 
+			DXGI_FORMAT_R32G32B32_FLOAT, 
 			0,
 			12u,
 			D3D11_INPUT_PER_VERTEX_DATA,

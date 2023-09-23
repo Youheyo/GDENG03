@@ -5,12 +5,13 @@
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
-#include <iostream>
+#include "PixelShader.h"
 
 class SwapChain;
 class DeviceContext;
 class VertexBuffer;
 class VertexShader;
+class PixelShader;
 
 class GraphicsEngine
 {
@@ -25,14 +26,18 @@ public:
 	~GraphicsEngine();
 
 	SwapChain* createSwapChain();
+	
 	DeviceContext* getImmediateDeviceContext();
 	VertexBuffer* createVertexBuffer();
 	VertexShader* createVertexShader(const void* shader_byte_code, size_t byte_code_size);
+	PixelShader* createPixelShader(const void* shader_byte_code, size_t byte_code_size);
 	bool compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size);
+	bool compilePixelShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size);
+	
 	void releaseCompiledShader();
 
-	bool createShaders();
-	bool setShaders();
+	// bool createShaders();
+	// bool setShaders();
 	// void getShadersBufferAndSize(void** bytecode, UINT* size);
 
 	static GraphicsEngine* get();
@@ -57,5 +62,6 @@ private:
 	friend class SwapChain;
 	friend class VertexBuffer;
 	friend class VertexShader;
+	friend class PixelShader;
 };
 
