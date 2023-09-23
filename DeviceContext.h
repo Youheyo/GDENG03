@@ -2,10 +2,12 @@
 #pragma comment (lib, "d3d11.lib")
 #include <d3d11.h>
 #include "SwapChain.h"
+#include "VertexShader.h"
+
 
 class SwapChain;
 class VertexBuffer;
-
+class VertexShader;
 class DeviceContext
 
 {
@@ -14,10 +16,12 @@ public:
 	~DeviceContext();
 
 	void clearRenderTargetColor(SwapChain* swap_chain ,float red, float green, float blue, float alpha);
+	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
 	void setVertexBuffer(VertexBuffer* vertex_buffer);
 	void drawTriangleList(UINT vertext_count, UINT start_vertex_index);
-	void drawTriangleStrip(UINT vertext_count, UINT start_vertex_index);
 	void setViewportSize(UINT width, UINT height);
+
+	void setVertexShader(VertexShader* vertex_shader);
 
 	bool release();
 
