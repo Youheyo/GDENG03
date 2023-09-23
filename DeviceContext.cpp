@@ -70,6 +70,16 @@ void DeviceContext::setPixelShader(PixelShader *pixel_shader)
 
 }
 
+void DeviceContext::setConstantBuffer(VertexShader *vertex_shader, ConstantBuffer *buffer)
+{
+	m_device_context->VSSetConstantBuffers(0, 1 , &buffer->m_buffer);
+}
+
+void DeviceContext::setConstantBuffer(PixelShader *pixel_shader, ConstantBuffer *buffer)
+{
+	m_device_context->PSSetConstantBuffers(0, 1 , &buffer->m_buffer);
+}
+
 bool DeviceContext::release()
 {
 	m_device_context->Release();

@@ -1,3 +1,5 @@
 ﻿  AppWindow.cpp
-D:\Projects\GDENG03\AppWindow.cpp(53,64): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+D:\Projects\GDENG03\AppWindow.cpp(61,64): warning C4267: 'argument': conversion from 'size_t' to 'UINT', possible loss of data
+  VertexBuffer.cpp
+  Generating Code...
   GDENG03.vcxproj -> D:\Projects\GDENG03\x64\Debug\GDENG03.exe
