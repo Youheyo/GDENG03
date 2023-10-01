@@ -1,8 +1,0 @@
-﻿  AppWindow.cpp
-  GraphicsEngine.cpp
-  main.cpp
-  Window.cpp
-GraphicsEngine.obj : error LNK2001: unresolved external symbol "public: __cdecl GraphicsEngine::~GraphicsEngine(void)" (??1GraphicsEngine@@QEAA@XZ)
-GraphicsEngine.obj : error LNK2001: unresolved external symbol "public: __cdecl GraphicsEngine::GraphicsEngine(void)" (??0GraphicsEngine@@QEAA@XZ)
-GraphicsEngine.obj : error LNK2001: unresolved external symbol D3D11CreateDevice
-D:\Projects\GDENG03\x64\Release\GDENG03.exe : fatal error LNK1120: 3 unresolved externals
