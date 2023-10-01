@@ -1,5 +1,6 @@
 #include "AppWindow.h"
 #include <Windows.h>
+#include <iostream>
 
 struct vec3 {
 	float x, y, z;
@@ -38,12 +39,22 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
+	// * Original
+	// vertex list[] = {
+	// //POS X - Y - Z			POS1 X - Y - Z			Color	Color1
+	// 	{-0.5f,-0.5f,0.0f,	-0.32f, -0.11f, 0.0f, 	1,0,0,	0,1,0},
+	// 	{-0.5f,0.5f,0.0f,	-0.11f, 0.78f, 0.0f, 	0,1,0,	1,1,0},
+	// 	{ 0.5f,-0.5f,0.0f,	0.75f, -0.73f, 0.0f, 	0,0,1,	1,0,0},
+	// 	{ 0.5f,0.5f,0.0f,	0.88f, 0.77f, 0.0f, 	1,1,0,	0,0,1}
+	// };
+
+	// Part 1
 	vertex list[] = {
 	//POS X - Y - Z			POS1 X - Y - Z			Color	Color1
-		{-0.5f,-0.5f,0.0f,	-0.32f, -0.11f, 0.0f, 	1,0,0,	0,1,0},
-		{-0.5f,0.5f,0.0f,	-0.11f, 0.78f, 0.0f, 	0,1,0,	1,1,0},
-		{ 0.5f,-0.5f,0.0f,	0.75f, -0.73f, 0.0f, 	0,0,1,	1,0,0},
-		{ 0.5f,0.5f,0.0f,	0.88f, 0.77f, 0.0f, 	1,1,0,	0,0,1}
+		{-0.8f,-0.8f,0.0f,	-0.3f,-0.3f,0.0f,	1,0,0,	0,1,0},
+		{-0.9f,0.5f,0.0f,	-0.1f,0.8f,0.0f,	0,1,0,	1,1,0},
+		{0.8f,-0.3f,0.0f,	0.2f,-0.8f,0.0f,	0,0,1,	1,0,0},
+		{-0.8f,-0.8f,0.0f,	0.8f,0.8f,0.0f,		1,1,0,	0,0,1}
 	};
 
 	m_vb = GraphicsEngine::get()->createVertexBuffer();
@@ -78,6 +89,30 @@ void AppWindow::onCreate()
 
 void AppWindow::onUpdate()
 {
+
+	if(this->enable_speed){
+
+		this->elapsed_time += EngineTime::getDeltaTime();
+
+		if(this->speed > this->max_speed){
+			this->speed_up = false;
+			std::cout << "SPEEDING DOWN";
+		}
+		else if (this->speed < this->min_speed){
+			this->speed_up = true;
+			std::cout << "SPEEDING UP";
+		}
+
+		if(this->speed_up){
+			this->speed += EngineTime::getDeltaTime() * 10;
+		}
+		else{
+			this->speed -= EngineTime::getDeltaTime() * 10;
+		}
+
+		std::cout << this->speed << std::endl;
+	}
+
 	Window::onUpdate();
 	// * Clear Render Target
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, .6f, 0, 1, 1);
@@ -88,7 +123,9 @@ void AppWindow::onUpdate()
 
 	constant cc;
 
-	cc.m_time = ::GetTickCount();
+	if(!this->enable_speed) cc.m_time = ::GetTickCount();
+	else cc.m_time = elapsed_time * speed;
+
 	m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_vs, m_cb);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(m_ps, m_cb);

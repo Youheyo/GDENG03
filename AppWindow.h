@@ -27,4 +27,12 @@ private:
 	VertexShader* m_vs;
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
+
+	double elapsed_time = 0.0f;
+
+	float max_speed = 400.0f;
+	float min_speed = 200.0f;
+	float speed = min_speed + 100.0f;
+	bool speed_up = true;
+	bool enable_speed = true;
 };
