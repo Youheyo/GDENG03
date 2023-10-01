@@ -90,27 +90,27 @@ void AppWindow::onCreate()
 void AppWindow::onUpdate()
 {
 
-	if(this->enable_speed){
+	if(enable_speed){
 
-		this->elapsed_time += EngineTime::getDeltaTime();
+		elapsed_time += EngineTime::getDeltaTime();
 
-		if(this->speed > this->max_speed){
-			this->speed_up = false;
-			std::cout << "SPEEDING DOWN";
+		if(speed > max_speed){
+			speed_up = false;
+			std::cout << "SPEEDING DOWN" << std::endl;
 		}
-		else if (this->speed < this->min_speed){
-			this->speed_up = true;
-			std::cout << "SPEEDING UP";
+		else if (speed < min_speed){
+			speed_up = true;
+			std::cout << "SPEEDING UP" << std::endl;
 		}
 
-		if(this->speed_up){
-			this->speed += EngineTime::getDeltaTime() * 10;
+		if(speed_up){
+			speed += EngineTime::getDeltaTime() * 10;
 		}
 		else{
-			this->speed -= EngineTime::getDeltaTime() * 10;
+			speed -= EngineTime::getDeltaTime() * 10;
 		}
 
-		std::cout << this->speed << std::endl;
+		//std::cout << speed << std::endl;
 	}
 
 	Window::onUpdate();
