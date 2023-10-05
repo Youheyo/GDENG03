@@ -42,9 +42,9 @@ void AppWindow::updateQuadPosition()
 	
 	m_delta_scale += m_delta_time / 0.15f;
 
-	cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5f, 0.5f, 0), Vector3D(1.0f,1.0f,0), (sin(m_delta_scale) + 1.0f)/ 2.0f));
-
-	temp.setTranslation(Vector3D::lerp(Vector3D(-1.5f,-1.5f,0), Vector3D(1.5f,1.5f,0), m_delta_pos));
+	cc.m_world.setScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(m_delta_scale) + 1.0f) / 2.0f));
+	
+	temp.setTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f,1.5f, 0), m_delta_pos));
 
 	cc.m_world *= temp;
 
@@ -83,11 +83,8 @@ void AppWindow::onCreate()
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	// GraphicsEngine::get()->createShaders();
 	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
 	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-
-	// GraphicsEngine::get()->getShadersBufferAndSize(&shader_byte_code, &size_shader);
 
 	m_vb->load(list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 

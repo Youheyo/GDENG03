@@ -32,9 +32,9 @@ VS_OUTPUT vsmain(VS_INPUT input){
 // * World Space
     output.position = mul(input.position, m_world);
 // * View Space
-    output.position = mul(input.position, m_view);
+    output.position = mul(output.position, m_view);
 // * Screen Space
-    output.position = mul(input.position, m_proj);
+    output.position = mul(output.position, m_proj);
 
     output.color = input.color;
     output.color1 = input.color1;

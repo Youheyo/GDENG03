@@ -49,7 +49,7 @@ public:
     }
 
     void setMatrix(const Matrix4x4& matrix){
-        ::memcpy(m_mat, matrix.m_mat, sizeof(float));
+        ::memcpy(m_mat, matrix.m_mat, sizeof(float) * 16);
     }
 
     void setOrthoLH(float width, float height, float near_plane, float far_plane){
@@ -57,7 +57,7 @@ public:
         m_mat[0][0] = 2.0f / width;
         m_mat[1][1] = 2.0f / height;
         m_mat[2][2] = 1.0f / (far_plane - near_plane);
-        m_mat[3][2] = 1.0f / (far_plane - near_plane);
+        m_mat[3][2] = -(near_plane / (far_plane - near_plane));
     }
 
 public:
