@@ -31,6 +31,9 @@
     <Filter Include="Engine\GraphicsEngine\ConstantBuffer">
       <UniqueIdentifier>{b677596f-be24-45e1-b526-d02d5f732a1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GraphicsEngine\Math">
+      <UniqueIdentifier>{05fce8ab-8c91-4299-8b1b-b39d8ad26b36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -91,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="ConstantBuffer.h">
       <Filter>Engine\GraphicsEngine\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>Engine\GraphicsEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>Engine\GraphicsEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

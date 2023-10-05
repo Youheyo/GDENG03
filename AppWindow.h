@@ -7,13 +7,16 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
-
+#include "Vector3D.h"
+#include "Matrix4x4.h"
 
 class AppWindow : public Window
 {
 public:
 	AppWindow();
 	~AppWindow();
+
+	void updateQuadPosition();
 
 	// Inherited via Window
 	virtual void onCreate() override;
@@ -26,4 +29,12 @@ private:
 	VertexShader* m_vs;
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
+
+	float m_old_delta;
+	float m_new_delta;
+	float m_delta_time;
+
+	float m_delta_pos;
+	float m_delta_scale;
+
 };
