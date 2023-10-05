@@ -82,12 +82,17 @@ DeviceContext* GraphicsEngine::getImmediateDeviceContext()
 
 VertexBuffer* GraphicsEngine::createVertexBuffer()
 {
-	return new VertexBuffer;
+	return new VertexBuffer();
+}
+
+IndexBuffer *GraphicsEngine::createIndexBuffer()
+{
+    return new IndexBuffer();
 }
 
 ConstantBuffer *GraphicsEngine::createConstantBuffer()
 {
-    return new ConstantBuffer;
+    return new ConstantBuffer();
 }
 
 VertexShader *GraphicsEngine::createVertexShader(const void * shader_byte_code, size_t byte_code_size)
@@ -146,31 +151,6 @@ void GraphicsEngine::releaseCompiledShader()
 {
 	if(m_blob)m_blob->Release();
 }
-
-// bool GraphicsEngine::createShaders()
-// {
-
-// 	ID3DBlob* errblob = nullptr;
-// 	// D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &m_vsblob, &errblob);
-// 	D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &m_psblob, &errblob);
-// 	// m_d3d_device->CreateVertexShader(m_vsblob->GetBufferPointer(), m_vsblob->GetBufferSize(), nullptr, &m_vs);
-// 	m_d3d_device->CreatePixelShader(m_psblob->GetBufferPointer(), m_psblob->GetBufferSize(), nullptr, &m_ps);
-// 	return true;
-// }
-
-// bool GraphicsEngine::setShaders()
-// {
-// 	// m_imm_context->VSSetShader(m_vs, nullptr, 0);
-// 	m_imm_context->PSSetShader(m_ps, nullptr, 0);
-// 	return true;
-// }
-
-// ? Taken out according to video 
-// void GraphicsEngine::getShadersBufferAndSize(void** bytecode, UINT* size)
-// {
-// 	*bytecode = this->m_vsblob->GetBufferPointer();
-// 	*size = (UINT)this->m_vsblob->GetBufferSize();
-// }
 
 GraphicsEngine* GraphicsEngine::get()
 {
