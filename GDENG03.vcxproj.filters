@@ -36,6 +36,8 @@
     </Filter>
     <Filter Include="Engine\IndexBuffer">
       <UniqueIdentifier>{95fa2fb7-8a5c-43a0-9909-13e357e6b017}</UniqueIdentifier>
+    <Filter Include="Engine\GraphicsEngine\Time">
+      <UniqueIdentifier>{12b4fbb8-bc94-459a-b11c-47dc47bff9f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +73,8 @@
     </ClCompile>
     <ClCompile Include="Indexbuffer.cpp">
       <Filter>Engine\IndexBuffer</Filter>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>Engine\GraphicsEngine\Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +113,8 @@
     </ClInclude>
     <ClInclude Include="Indexbuffer.h">
       <Filter>Engine\IndexBuffer</Filter>
+    <ClInclude Include="EngineTime.h">
+      <Filter>Engine\GraphicsEngine\Time</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

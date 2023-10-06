@@ -10,6 +10,8 @@
 #include "ConstantBuffer.h"
 #include "Vector3D.h"
 #include "Matrix4x4.h"
+#include "EngineTime.h"
+
 
 class AppWindow : public Window
 {
