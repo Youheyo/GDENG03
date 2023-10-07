@@ -11,7 +11,8 @@
 #include "Vector3D.h"
 #include "Matrix4x4.h"
 #include "EngineTime.h"
-
+#include "Cube.h"
+#include <vector>
 
 class AppWindow : public Window
 {
@@ -19,12 +20,14 @@ public:
 	AppWindow();
 	~AppWindow();
 
-	void updateQuadPosition();
 
 	// Inherited via Window
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
+	
+	LONG getWidth();
+	LONG getHeight();
 
 private:
 	SwapChain* m_swap_chain;
@@ -34,11 +37,8 @@ private:
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
 
-	float m_old_delta;
-	float m_new_delta;
-	float m_delta_time;
-
-	float m_delta_pos;
-	float m_delta_scale;
+	int target_amt = 2;
+	int curr_amt = 0;
+	std::vector<GameObject*> object_list;
 
 };

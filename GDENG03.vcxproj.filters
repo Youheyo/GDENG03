@@ -1,131 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="App">
-      <UniqueIdentifier>{7b023336-5a21-4a16-b5e5-ac5f93b1221d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{a25b453c-d392-40eb-85f0-59ecf01b30fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Windowing System">
-      <UniqueIdentifier>{e37412f1-6e60-4736-acab-f62a1cacae71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine">
-      <UniqueIdentifier>{a2f76e79-ecd8-4532-81bf-6ef005160d08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\SwapChain">
-      <UniqueIdentifier>{9f519b7c-bccf-40ee-b649-38de18785a0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\DeviceContext">
-      <UniqueIdentifier>{98a947a3-76e6-47dd-b73d-2406f4059b31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\VertexBuffer">
-      <UniqueIdentifier>{910d7ef5-630c-44be-b096-baf67f6b5d31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\VertexShader">
-      <UniqueIdentifier>{26268234-47e0-4969-9b03-42ce12091f14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\PixelShader">
-      <UniqueIdentifier>{38e460f8-1107-4903-8619-da57c9e67eb3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\ConstantBuffer">
-      <UniqueIdentifier>{b677596f-be24-45e1-b526-d02d5f732a1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GraphicsEngine\Math">
-      <UniqueIdentifier>{05fce8ab-8c91-4299-8b1b-b39d8ad26b36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\IndexBuffer">
-      <UniqueIdentifier>{95fa2fb7-8a5c-43a0-9909-13e357e6b017}</UniqueIdentifier>
-    <Filter Include="Engine\GraphicsEngine\Time">
-      <UniqueIdentifier>{12b4fbb8-bc94-459a-b11c-47dc47bff9f5}</UniqueIdentifier>
-    </Filter>
+    <FxCompile Include="PixelShader.hlsl" />
+    <FxCompile Include="shader.fx" />
+    <FxCompile Include="VertexShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="AppWindow.cpp">
-      <Filter>App</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Engine\Windowing System</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsEngine.cpp">
-      <Filter>Engine\GraphicsEngine</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapChain.cpp">
-      <Filter>Engine\GraphicsEngine\SwapChain</Filter>
-    </ClCompile>
-    <ClCompile Include="DeviceContext.cpp">
-      <Filter>Engine\GraphicsEngine\DeviceContext</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Engine\GraphicsEngine\VertexBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="VertexShader.cpp">
-      <Filter>Engine\GraphicsEngine\VertexShader</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelShader.cpp">
-      <Filter>Engine\GraphicsEngine\PixelShader</Filter>
-    </ClCompile>
-    <ClCompile Include="ConstantBuffer.cpp">
-      <Filter>Engine\GraphicsEngine\ConstantBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Indexbuffer.cpp">
-      <Filter>Engine\IndexBuffer</Filter>
-    <ClCompile Include="EngineTime.cpp">
-      <Filter>Engine\GraphicsEngine\Time</Filter>
-    </ClCompile>
+    <ClCompile Include="AppWindow.cpp" />
+    <ClCompile Include="ConstantBuffer.cpp" />
+    <ClCompile Include="DeviceContext.cpp" />
+    <ClCompile Include="EngineTime.cpp" />
+    <ClCompile Include="GraphicsEngine.cpp" />
+    <ClCompile Include="Indexbuffer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PixelShader.cpp" />
+    <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppWindow.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Engine\Windowing System</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsEngine.h">
-      <Filter>Engine\GraphicsEngine</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapChain.h">
-      <Filter>Engine\GraphicsEngine\SwapChain</Filter>
-    </ClInclude>
-    <ClInclude Include="DeviceContext.h">
-      <Filter>Engine\GraphicsEngine\DeviceContext</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Engine\GraphicsEngine\VertexBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexShader.h">
-      <Filter>Engine\GraphicsEngine\VertexShader</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelShader.h">
-      <Filter>Engine\GraphicsEngine\PixelShader</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstantBuffer.h">
-      <Filter>Engine\GraphicsEngine\ConstantBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.h">
-      <Filter>Engine\GraphicsEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>Engine\GraphicsEngine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Indexbuffer.h">
-      <Filter>Engine\IndexBuffer</Filter>
-    <ClInclude Include="EngineTime.h">
-      <Filter>Engine\GraphicsEngine\Time</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
-      <Filter>App</Filter>
-    </FxCompile>
-    <FxCompile Include="shader.fx">
-      <Filter>App</Filter>
-    </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
-      <Filter>App</Filter>
-    </FxCompile>
+    <ClInclude Include="AppWindow.h" />
+    <ClInclude Include="ConstantBuffer.h" />
+    <ClInclude Include="DeviceContext.h" />
+    <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="Indexbuffer.h" />
+    <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="PixelShader.h" />
+    <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="Cube.h" />
+    <ClInclude Include="GameObject.h" />
   </ItemGroup>
 </Project>
