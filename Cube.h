@@ -18,6 +18,9 @@ public:
     void update(float deltaTime) override;
 	void draw(float width, float height, void* shader_byte_code, size_t size_shader) override;
 
+	void setSpeed(float speed);
+	void setRotAx(char ax);
+
 private:
 
 	VertexBuffer* vb;
@@ -64,4 +67,5 @@ private:
 	float m_delta_time = 0;
 	float rot_speed = 1;
 	float m_delta_pos = 0;
+	int ax_x = 0, ax_y = 0,ax_z = 0;
 };

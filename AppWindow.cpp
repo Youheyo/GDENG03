@@ -58,13 +58,27 @@ void AppWindow::onCreate()
 
 	for(curr_amt; curr_amt < target_amt; curr_amt++){
 
-	//float random_float = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
+	float random_float = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
+	float random_float1 = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
 		Cube* cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(Vector3D(2,2,0));
+		// cube->setPosition(Vector3D(1,1,0));
+		cube->setPosition(Vector3D(random_float,random_float1,0));
 		cube->setScale(Vector3D(.5f,.5f,.5f));
 		cube->setRotation(Vector3D(1,0,0));
-		this->object_list.push_back(cube);
 
+		switch (rand() % 3){
+			case 0:
+				cube->setRotAx('x');
+				break;
+			case 1:
+				cube->setRotAx('y');
+				break;
+			case 2:
+				cube->setRotAx('z');
+				break;
+		}
+		cube->setSpeed(rand() % 11 + 1);
+		this->object_list.push_back(cube);
 	}
 		m_cb = GraphicsEngine::get()->createConstantBuffer();
 		m_cb->load(&cc, sizeof(constant));

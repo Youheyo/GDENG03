@@ -1,7 +1,7 @@
 #include "Cube.h"
 #include <iostream>
 
-Cube::Cube(void* shader_byte_code, size_t size_shader ) {
+Cube::Cube(void *shader_byte_code, size_t size_shader) {
     
 	this->vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);
@@ -40,9 +40,9 @@ void Cube::update(float deltaTime) {
 
 	m_delta_time += deltaTime;
 	m_delta_pos += deltaTime / 10.0f;
+	
+	this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
 
-	this->setRotation(Vector3D(m_delta_time * rot_speed,m_delta_time * rot_speed,m_delta_time * rot_speed));
-	this->setPosition(Vector3D(m_delta_pos, m_delta_pos ,m_delta_pos));
 
 	if(m_delta_pos > 1.0f) m_delta_pos = 0;
 }
@@ -53,8 +53,8 @@ void Cube::draw(float width, float height, void *shader_byte_code, size_t size_s
 
 	Matrix4x4 mat;
 
-	cc.m_world.setScale(this->scale);
-	
+	cc.m_world.setScale(Vector3D(this->scale));
+
 	mat.setIdentity();
 	mat.setRotationZ(this->rotation.m_z);
 	cc.m_world*=mat;
@@ -67,7 +67,13 @@ void Cube::draw(float width, float height, void *shader_byte_code, size_t size_s
 	mat.setRotationX(this->rotation.m_x);
 	cc.m_world*=mat;
 
+	mat.setIdentity();
+	mat.setScale(this->scale);
+	cc.m_world*=mat;
+
+	mat.setIdentity();
 	mat.setTranslation(this->position);
+	cc.m_world*=mat;
 
 	cc.m_view.setIdentity();
 	cc.m_proj.setOrthoLH(
@@ -94,4 +100,22 @@ void Cube::draw(float width, float height, void *shader_byte_code, size_t size_s
 
 	this->cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 
+}
+
+void Cube::setSpeed(float speed) {
+    this->rot_speed = speed;
+}
+
+void Cube::setRotAx(char ax) {
+    switch (ax){
+		case 'x':
+			ax_x = 1;
+			break;
+		case 'y':
+			ax_y = 1;
+			break;
+		case 'z':
+			ax_z = 1;
+			break;
+	}
 }
