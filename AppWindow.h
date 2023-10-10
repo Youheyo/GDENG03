@@ -10,8 +10,9 @@
 #include "ConstantBuffer.h"
 #include "Vector3D.h"
 #include "Matrix4x4.h"
+#include "InputSystem.h"
 
-class AppWindow : public Window
+class AppWindow : public Window, public InputListener
 {
 public:
 	AppWindow();
@@ -23,6 +24,17 @@ public:
 	virtual void onCreate() override;
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
+
+	virtual void onKeyDown(int key) override;
+	virtual void onKeyUp(int key) override;
+
+	virtual void onMouseMove(const Point deltaPos);
+
+	virtual void onLeftMouseDown(const Point deltaPos);
+	virtual void onLeftMouseUp(const Point deltaPos);
+
+	virtual void onRightMouseDown(const Point deltaPos);
+	virtual void onRightMouseUp(const Point deltaPos);
 
 private:
 	SwapChain* m_swap_chain;

@@ -194,9 +194,48 @@ void AppWindow::onDestroy()
 	m_vb->release();
 	m_ib->release();
 	m_cb->release();
+
 	m_swap_chain->release();
+	
 	m_vs->release();
 	m_ps->release();
+	
+
+	InputSystem::destroy();
 	GraphicsEngine::get()->release();
 
+}
+
+void AppWindow::onKeyDown(int key)
+{
+	if(InputSystem::getInstance()->isKeyDown('W')){
+		std::cout << "W Presssed\n";
+	}
+}
+
+void AppWindow::onKeyUp(int key)
+{
+	if(InputSystem::getInstance()->isKeyDown('W')){
+		std::cout << "W Released\n";
+	}
+}
+
+void AppWindow::onMouseMove(const Point deltaPos)
+{
+}
+
+void AppWindow::onLeftMouseDown(const Point deltaPos)
+{
+}
+
+void AppWindow::onLeftMouseUp(const Point deltaPos)
+{
+}
+
+void AppWindow::onRightMouseDown(const Point deltaPos)
+{
+}
+
+void AppWindow::onRightMouseUp(const Point deltaPos)
+{
 }
