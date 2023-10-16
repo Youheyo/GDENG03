@@ -53,6 +53,7 @@ void AppWindow::onCreate()
 
     constant cc;
 	cc.m_time = 0;
+	int rot = 0;
 
 	std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -60,13 +61,15 @@ void AppWindow::onCreate()
 
 		float random_float = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
 		float random_float1 = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
+		float random_float2 = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1 - -1.0f)));
 			Cube* cube = new Cube(shader_byte_code, size_shader);
 			// cube->setPosition(Vector3D(1,1,0));
-			cube->setPosition(Vector3D(random_float,random_float1,0));
-			cube->setScale(Vector3D(.5f,.5f,.5f));
-			cube->setRotation(Vector3D(1,0,0));
+			cube->setPosition(Vector3D(random_float, random_float1, random_float2));
+			cube->setScale(Vector3D(.1f,.1f,.1f));
+			cube->setRotation(Vector3D(0,0,0));
 
-			switch (rand() % 3){
+			//switch (rand() % 3){
+			switch (rot){
 				case 0:
 					cube->setRotAx('x');
 					break;
@@ -79,28 +82,13 @@ void AppWindow::onCreate()
 			}
 		cube->setSpeed(rand() % 11 + 1);
 		this->object_list.push_back(cube);
-
 	}
-
-	Cube* cube1 = new Cube(shader_byte_code, size_shader);
-	cube1->setPosition(Vector3D(0,0,0));
-	cube1->setScale(Vector3D(0.5f,0.5f,0.5f));
-	cube1->setRotation(Vector3D(1,0,0));
-
 
 	InputSystem::initialize();
 	SceneCameraHandler::initialize();
 
-	Vector3D CamPos;
-	CamPos = SceneCameraHandler::getInstance()->getSceneCameraPos();
-
-	Cube* cube2 = new Cube(shader_byte_code, size_shader);
-	cube2->setPosition(CamPos);
-	cube2->setScale(Vector3D(0.5f, 0.5f, 0.5f));
-	cube2->setRotation(Vector3D(1, 0, 0));
-
-		m_cb = GraphicsEngine::get()->createConstantBuffer();
-		m_cb->load(&cc, sizeof(constant));
+	m_cb = GraphicsEngine::get()->createConstantBuffer();
+	m_cb->load(&cc, sizeof(constant));
 
 }
 
@@ -124,8 +112,6 @@ void AppWindow::onUpdate()
 
 	InputSystem::getInstance()->update();
 	SceneCameraHandler::getInstance()->update();
-
-
 	
 	m_swap_chain->present(false);
 
@@ -145,6 +131,7 @@ void AppWindow::onDestroy()
 	
 
 	InputSystem::destroy();
+	SceneCameraHandler::destroy();
 	GraphicsEngine::get()->release();
 
 }

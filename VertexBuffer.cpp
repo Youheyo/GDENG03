@@ -68,7 +68,7 @@ bool VertexBuffer::load(void* list_vertices, UINT size_vertex, UINT size_list, v
 
 		return false;
 	}
-
+		
 	return true;
 }
 

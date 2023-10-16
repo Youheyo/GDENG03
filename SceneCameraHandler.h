@@ -10,7 +10,6 @@ public:
 
     void update();
     Matrix4x4 getSceneCameraViewMatrix();
-    Vector3D getSceneCameraPos();
 
 private:
     SceneCameraHandler();

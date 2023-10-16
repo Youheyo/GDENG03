@@ -2,9 +2,7 @@
 #include <iostream>
 
 Camera::Camera(std::string name) {
-    this->setPosition(Vector3D(0,0,-4));
-	this->localMatrix.setIdentity();
-    this->updateViewMatrix();
+    this->setPosition(Vector3D(0,0,-2.0f));
     InputSystem::getInstance()->addListener(this);
 }
 
@@ -14,40 +12,37 @@ Camera::~Camera() {
 
 void Camera::update(float deltaTime) {
     
-    Vector3D localPos = this->position;
+    float x = this->position.m_x;
+    float y = this->position.m_y;
+    float z = this->position.m_z;
 
-    float x = localPos.m_x;
-    float y = localPos.m_y;
-    float z = localPos.m_z;
+    float moveSpeed = 1.0f;
 
-    float moveSpeed = 10.0f;
 
+    // * Forward
     if(InputSystem::getInstance()->isKeyDown('W')){
-        std::cout << "Camera Moving... " << this->position.m_x << " / " << this->position.m_y << " / " << this->position.m_z << std::endl;
         z += deltaTime * moveSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
-    else if(InputSystem::getInstance()->isKeyDown('S')){
-        std::cout << "Camera Moving... " << this->position.m_x << " / " << this->position.m_y << " / " << this->position.m_z << std::endl;
+    // * Backward
+    if(InputSystem::getInstance()->isKeyDown('S')){
         z -= deltaTime * moveSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
-    else if(InputSystem::getInstance()->isKeyDown('A')){
-        std::cout << "Camera Moving... " << this->position.m_x << " / " << this->position.m_y << " / " << this->position.m_z << std::endl;
+    // * Strafe Left
+    if(InputSystem::getInstance()->isKeyDown('A')){
+        x -= deltaTime * moveSpeed;
+        this->setPosition(Vector3D(x, y, z));
+        this->updateViewMatrix();
+    }
+    // * Strafe Right
+    if(InputSystem::getInstance()->isKeyDown('D')){
         x += deltaTime * moveSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
-    else if(InputSystem::getInstance()->isKeyDown('D')){
-        x -= deltaTime * moveSpeed;
-        std::cout << "Camera Moving... " << this->position.m_x << " / " << this->position.m_y << " / " << this->position.m_z << std::endl;
-        this->setPosition(Vector3D(x, y, z));
-        this->updateViewMatrix();
-    }
-
-    // std::cout << this->position.m_x << " - "  << this->position.m_y << " - " << this->position.m_z  << std::endl; 
 
 }
 
@@ -58,18 +53,23 @@ Matrix4x4 Camera::getViewMatrix() {
 void Camera::updateViewMatrix()
 {
 
-    Matrix4x4 worldCam; worldCam.setIdentity();
-    Matrix4x4 temp; temp.setIdentity();
+    Matrix4x4 worldCam, temp; 
+    worldCam.setIdentity();
 
-    Vector3D localrot = this->rotation;
-
-    temp.setRotationX(localrot.m_x);
+    temp.setIdentity();
+    temp.setRotationX(this->rotation.m_x);
     worldCam *= temp;
 
-    temp.setRotationY(localrot.m_y);
+    temp.setIdentity();
+    temp.setRotationY(this->rotation.m_y);
     worldCam *= temp;
 
-    temp.setRotationZ(localrot.m_z);
+    temp.setIdentity();
+    temp.setRotationZ(this->rotation.m_z);
+    worldCam *= temp;
+
+    temp.setIdentity();
+    temp.setTranslation(this->position);
     worldCam *= temp;
 
     worldCam.getInverse();
@@ -87,10 +87,13 @@ void Camera::onKeyUp(int key) {
 void Camera::onMouseMove(const Point deltaPos) {
 
 
-		float speed = 1.0f;
+		float speed = 0.001f;
 
-		this->setRotation(Vector3D(this->rotation.m_x + deltaPos.getX() * speed, this->rotation.m_y + deltaPos.getY() * speed, this->rotation.m_z));
-        std::cout << "Mouse Rotation " << this->rotation.m_x << " - "  << this->rotation.m_y << " - " << this->rotation.m_z  << std::endl; 
+        float x = this->rotation.m_x;
+        float y = this->rotation.m_y;
+        float z = this->rotation.m_z;
+
+		this->setRotation(Vector3D(x + deltaPos.getY() * speed, y + deltaPos.getX() * speed, z));
 
 		this->updateViewMatrix();
 	

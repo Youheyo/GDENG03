@@ -23,13 +23,8 @@ Matrix4x4 SceneCameraHandler::getSceneCameraViewMatrix() {
     return sceneCamera->getViewMatrix();
 }
 
-Vector3D SceneCameraHandler::getSceneCameraPos()
-{
-    return this->sceneCamera->getPosition();
-}
-
 SceneCameraHandler::SceneCameraHandler() {
-    this->sceneCamera= new Camera("SceneCamera");
+    this->sceneCamera = new Camera("SceneCamera");
 }
 
 SceneCameraHandler::~SceneCameraHandler() {

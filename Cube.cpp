@@ -38,52 +38,65 @@ Cube::~Cube() {
 
 void Cube::update(float deltaTime) {
 
-	m_delta_time += deltaTime;
-	m_delta_pos += deltaTime / 10.0f;
-	
-	this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
+
+	if(InputSystem::getInstance()->isKeyDown('S')){
+		m_delta_time += deltaTime;
+		m_delta_pos += deltaTime / 10.0f;
+		
+		this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
 
 
-	if(m_delta_pos > 1.0f) m_delta_pos = 0;
+		if(m_delta_pos > 1.0f) m_delta_pos = 0;
+	}
+	else if(InputSystem::getInstance()->isKeyDown('W')){
+		m_delta_time -= deltaTime;
+		m_delta_pos -= deltaTime / 10.0f;
+		
+		this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
+
+
+		if(m_delta_pos > 1.0f) m_delta_pos = 0;
+	}
 }
 
 void Cube::draw(float width, float height, void *shader_byte_code, size_t size_shader)
 {
 	constant cc;
-	// cc.m_world.setScale(Vector3D(this->scale));
+	cc.m_world.setIdentity();
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setScale(this->scale);
-	cc.m_world*=this->localMatrix;
+	Matrix4x4 temp;
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setRotationZ(this->rotation.m_z);
-	cc.m_world*=this->localMatrix;
+	// * Scale
+	temp.setIdentity();
+	temp.setScale(this->scale);
+	cc.m_world*=temp;
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setRotationY(this->rotation.m_y);
-	cc.m_world*=this->localMatrix;
+	// * Rotation XYZ
+	temp.setIdentity();
+	temp.setRotationZ(this->rotation.m_z);
+	cc.m_world*=temp;
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setRotationX(this->rotation.m_x);
-	cc.m_world*=this->localMatrix;
+	temp.setIdentity();
+	temp.setRotationY(this->rotation.m_y);
+	cc.m_world*=temp;
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setScale(this->scale);
-	cc.m_world*=this->localMatrix;
+	temp.setIdentity();
+	temp.setRotationX(this->rotation.m_x);
+	cc.m_world*=temp;
 
-	this->localMatrix.setIdentity();
-	this->localMatrix.setTranslation(this->position);
-	cc.m_world*=this->localMatrix;
+	// * Translate
+	temp.setIdentity();
+	temp.setTranslation(this->position);
+	cc.m_world*=temp;
 
 	Matrix4x4 cameraMatrix = SceneCameraHandler::getInstance()->getSceneCameraViewMatrix();
 	cc.m_view = cameraMatrix;
 
 	cc.m_proj.setPerspectiveFovLH(
-	        (width) / 300.0f,
-	        (height) / 300.0f,
-	        1.0f,
-	        1000.0f
+			1.57f,
+			(width / height),
+	        0.1f,
+	        100.0f
 	);
 
 	// cc.m_view.setIdentity();

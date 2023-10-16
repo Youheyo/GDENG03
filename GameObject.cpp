@@ -23,7 +23,6 @@ void GameObject::draw(float width, float height, void *shader_byte_code, size_t 
 
 void GameObject::setPosition(Vector3D pos) {
     this->position = pos;
-
 }
 
 Vector3D GameObject::getPosition()
