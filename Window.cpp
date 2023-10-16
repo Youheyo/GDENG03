@@ -86,7 +86,7 @@ bool Window::init()
 	//set this flag to true to indicate that the window is initialized and running
 	m_is_run = true;
 
-
+	EngineTime::initialize();
 
 	return true;
 }
@@ -94,6 +94,8 @@ bool Window::init()
 bool Window::broadcast()
 {
 	MSG msg;
+
+	EngineTime::LogFrameStart();
 
 	this->onUpdate();
 
@@ -103,8 +105,10 @@ bool Window::broadcast()
 		DispatchMessage(&msg);
 	}
 
-
 	Sleep(1);
+
+	EngineTime::LogFrameEnd();
+
 
 	return true;
 }

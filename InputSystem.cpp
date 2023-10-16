@@ -50,25 +50,35 @@ void InputSystem::update() {
 
     if(GetKeyboardState(keyStates)){
         for(int i = 0; i < ARRAYSIZE(keyStates); i++){
+
             if(this->keyStates[i] & 0x80 && this->keyStates[i] != this->oldkeyStates[i]){
+
                 if(VK_LBUTTON == i && this->keyStates[i] != this->oldkeyStates[i]){
                     Point deltaPt = Point(currentPt.x - this->oldMousePos.getX(), currentPt.y - this->oldMousePos.getY());
                     this->callOnLeftMouseDown(deltaPt);
+
                 }else if(VK_RBUTTON == i && this->keyStates[i] != this->oldkeyStates[i]){
+
                     Point deltaPt = Point(currentPt.x - this->oldMousePos.getX(), currentPt.y - this->oldMousePos.getY());
                     this->callOnRightMouseDown(deltaPt);
+
                 }
                 else{
                     callOnKeyDown(i);
                 }
             }
             else if(this->keyStates[i] != this->oldkeyStates[i]){
+
                 if(VK_LBUTTON == i && this->keyStates[i] != this->oldkeyStates[i]){
+
                     Point deltaPt = Point(currentPt.x - this->oldMousePos.getX(), currentPt.y - this->oldMousePos.getY());
                     this->callOnLeftMouseUp(deltaPt);
+
                 }else if(VK_RBUTTON == i && this->keyStates[i] != this->oldkeyStates[i]){
+
                     Point deltaPt = Point(currentPt.x - this->oldMousePos.getX(), currentPt.y - this->oldMousePos.getY());
                     this->callOnRightMouseUp(deltaPt);
+
                 }
                 else{
                   callOnKeyUp(i);
@@ -83,7 +93,7 @@ bool InputSystem::isKeyDown(int key) {
 
     for(int i = 0; i < ARRAYSIZE(this->keyStates); i++){
 
-        if(!(this->keyStates[i] & 0x80) && i == key){
+        if((this->keyStates[i] & 0x80) && i == key){
             return true;
         }
         else if(i == key){
@@ -97,7 +107,7 @@ bool InputSystem::isKeyUp(int key) {
 
     for(int i = 0; i < ARRAYSIZE(this->keyStates); i++){
 
-        if((this->keyStates[i] & 0x80) && i == key){
+        if(!(this->keyStates[i] & 0x80) && i == key){
             return true;
         }
         else if(i == key){
@@ -126,10 +136,6 @@ InputSystem::InputSystem() {
 
 InputSystem::~InputSystem() {
     this->inputListenerList.clear();    
-}
-
-InputSystem& InputSystem::operator=(InputSystem const&) {
-    
 }
 
 void InputSystem::callOnMouseMove(Point deltaPt) {

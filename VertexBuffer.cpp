@@ -79,7 +79,8 @@ UINT VertexBuffer::getSizeVertexList()
 
 bool VertexBuffer::release()
 {
-	m_layout->Release();
+
+	if(m_layout != nullptr ) m_layout->Release();
 	m_buffer->Release();
 	delete this;
 	return true;
