@@ -44,6 +44,8 @@ public:
 
 	static GraphicsEngine* get();
 
+	ID3D11Device* getDirect3DDevice();
+
 private:
 	DeviceContext* m_imm_device_context;
 

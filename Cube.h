@@ -9,12 +9,6 @@
 #include "EngineTime.h"
 #include "SceneCameraHandler.h"
 
-
-// * Set COLOR to 0 for rainbow, 1 for flat white color
-// * Other values for #5 of MC0
-#define COLOR 1
-
-
 class Cube : public GameObject{
 
 public:
@@ -35,8 +29,6 @@ private:
 	PixelShader* ps;
 	ConstantBuffer* cb;
 
-
-#if COLOR == 0
     vertex vertex_list[8] = {
 		// ? Front Face
 		{ Vector3D(-0.5f,-0.5f,-0.5f),	Vector3D( 1,0,0), Vector3D(0.2f,0,0)},
@@ -50,37 +42,6 @@ private:
 		{ Vector3D(-0.5f,0.5f,0.5f), 	Vector3D( 0,1,1), Vector3D(0,0.2f,0.2f)},
 		{ Vector3D(-0.5f,-0.5f,0.5f), 	Vector3D( 1,0,1), Vector3D(0,0.2f,0)},
 	};
-
-#elif COLOR == 1
-    vertex vertex_list[8] = {
-		// ? Front Face
-		{ Vector3D(-0.5f,-0.5f,-0.5f),	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-		{ Vector3D(-0.5f,0.5f,-0.5f),  	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-		{ Vector3D(0.5f,0.5f,-0.5f),  	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-		{ Vector3D(0.5f,-0.5f,-0.5f), 	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-
-		// ? Back Face
-		{ Vector3D(0.5f,-0.5f,0.5f),	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)},
-		{ Vector3D(0.5f,0.5f,0.5f), 	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-		{ Vector3D(-0.5f,0.5f,0.5f), 	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)}, 
-		{ Vector3D(-0.5f,-0.5f,0.5f), 	Vector3D( 1.0f, 1.0f, 1.0f), Vector3D( 0.8f, 0.8f, 0.8f)} 
-	};
-#else
-    vertex vertex_list[8] = {
-		// ? Front Face
-		{ Vector3D(-0.5f,-0.5f,-0.5f),	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-		{ Vector3D(-0.5f,0.5f,-0.5f),  	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-		{ Vector3D(0.5f,0.5f,-0.5f),  	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-		{ Vector3D(0.5f,-0.5f,-0.5f), 	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-
-		// ? Back Face
-		{ Vector3D(0.5f,-0.5f,0.5f),	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)},
-		{ Vector3D(0.5f,0.5f,0.5f), 	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-		{ Vector3D(-0.5f,0.5f,0.5f), 	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)}, 
-		{ Vector3D(-0.5f,-0.5f,0.5f), 	Vector3D( 1.0f, 0.0f, 0.0f), Vector3D( 0.0f, 0.0f, 1.0f)} 
-	};
-	
-#endif
 
     unsigned int index_list[36] = {
 		// ? Front Side

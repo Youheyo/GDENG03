@@ -3,12 +3,9 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-
-// * Set BEHAVIOR to adjust how cubes are spawned
-// * 0 - Spawn number of cubes based on range and amount (has additional params)
-// * 1 - Instantiates a single cube
-// * Other values for #6 of MC0
-#define BEHAVIOR 0
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 struct vertex {
 	Vector3D color;
@@ -60,9 +57,6 @@ void AppWindow::onCreate()
     constant cc;
 	cc.m_time = 0;
 
-
-	#if BEHAVIOR == 0 // * Randomized cube spawn positions and/or rotation axis
-
 	// * Parameters of cubes
 	int rot = -1; // ? rotation axis
 	this->target_amt = 50; // ? Target amount of cubes to instantiate
@@ -107,44 +101,22 @@ void AppWindow::onCreate()
 		cube->setSpeed(rand() % 11 + 1);
 		this->object_list.push_back(cube);
 	}
-	#elif BEHAVIOR == 1 //  * Instantiate a single cube
-		Cube* cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(0,1,0);
-		cube->setScale(1.0f,1.0f,1.0f);
-		cube->setRotation(0,0,0);
-		cube->setSpeed(10.0f);	// ? Rotation speed
-		// cube->setRotAx('a'); // ? x,y,z or a for all axes
-		this->object_list.push_back(cube);
-
-	#else
-		Cube* cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(0,0,0);
-		cube->setScale(10.0f, 0.0f, 10.0f);
-		cube->setRotation(0,0,0);
-		this->object_list.push_back(cube);
-
-		cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(-1.5f,1,-3.0f);
-		cube->setScale(1.0f,1.0f,1.0f);
-		cube->setRotation(0,0,0);
-		this->object_list.push_back(cube);
-
-		cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(0.0f,1, 0.0f);
-		cube->setScale(1.0f,1.0f,1.0f);
-		cube->setRotation(0,0,0);
-		this->object_list.push_back(cube);
-
-		cube = new Cube(shader_byte_code, size_shader);
-		cube->setPosition(2.6f, 1, 2.0f);
-		cube->setScale(1.0f,1.0f,1.0f);
-		cube->setRotation(0,0,0);
-		this->object_list.push_back(cube);
-	#endif
 
 	InputSystem::initialize();
-	InputSystem::getInstance()->showCursor(false);
+	InputSystem::getInstance()->showCursor(true);
 	SceneCameraHandler::initialize();
+
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	// io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+
+	// Setup Platform/Renderer backends
+	ImGui_ImplWin32_Init(m_hwnd);
+	ImGui_ImplDX11_Init(GraphicsEngine::get()->getDirect3DDevice(), GraphicsEngine::get()->getImmediateDeviceContext()->getDeviceContext());
 
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
 	m_cb->load(&cc, sizeof(constant));
@@ -153,7 +125,18 @@ void AppWindow::onCreate()
 
 void AppWindow::onUpdate()
 {
+
 	Window::onUpdate();
+	
+	InputSystem::getInstance()->update();
+
+	// (Your code process and dispatch Win32 messages)
+	// Start the Dear ImGui frame
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::ShowDemoWindow(); // Show demo window! :)
+
 	// * Clear Render Target
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, .6f, 0, 1, 1);
 
@@ -169,9 +152,14 @@ void AppWindow::onUpdate()
 		object_list[x]->draw(getWidth(), getHeight(), m_vs, m_ps);
 	}
 
-	InputSystem::getInstance()->update();
 	SceneCameraHandler::getInstance()->update();
 	
+	// Rendering
+	// (Your code clears your framebuffer, renders your other stuff etc.)
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	// (Your code calls swapchain's Present() function)
+
 	m_swap_chain->present(false);
 
 }
@@ -188,6 +176,10 @@ void AppWindow::onDestroy()
 	m_vs->release();
 	m_ps->release();
 	
+
+	ImGui_ImplDX11_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
 
 	InputSystem::destroy();
 	SceneCameraHandler::destroy();

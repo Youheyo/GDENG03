@@ -96,3 +96,8 @@ bool DeviceContext::release()
 	delete this;
 	return true;
 }
+
+ID3D11DeviceContext *DeviceContext::getDeviceContext()
+{
+    return this->m_device_context;
+}

@@ -1,16 +1,8 @@
 #include "Camera.h"
 #include <iostream>
 
-// * Set CAM_POS to 0 for default, other values to do #6 of MC0
-#define CAM_POS 0 
-
 Camera::Camera(std::string name) {
-#if CAM_POS == 0
     this->setPosition(Vector3D(0, 0, -2.0f));
-#else
-    this->setPosition(Vector3D(0, 0, 2.0f));
-    this->setRotation(0, -2, 0);
-#endif
     InputSystem::getInstance()->addListener(this);
 }
 
