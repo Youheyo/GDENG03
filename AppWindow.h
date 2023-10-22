@@ -50,7 +50,7 @@ private:
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
 
-	int target_amt = 10;
+	int target_amt = 1;
 	int curr_amt = 0;
 	std::vector<GameObject*> object_list;
 

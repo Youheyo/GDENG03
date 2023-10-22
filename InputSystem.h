@@ -14,6 +14,8 @@ public:
     void addListener(InputListener* listener);
     void removeListener(InputListener* listener);
 
+    void showCursor(bool show);
+
     void update();
 
     bool isKeyDown(int key);

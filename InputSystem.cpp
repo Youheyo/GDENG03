@@ -31,6 +31,11 @@ void InputSystem::removeListener(InputListener* listener) {
     }
 }
 
+void InputSystem::showCursor(bool show)
+{
+    ::ShowCursor(show);
+}
+
 void InputSystem::update() {
 
     POINT currentPt = {};

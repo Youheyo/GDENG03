@@ -1,6 +1,8 @@
 #pragma once
 #include "Vector3D.h"
 #include "Matrix4x4.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
 
 class GameObject{
 
@@ -24,19 +26,23 @@ struct constant{
     GameObject();
     ~GameObject();
 
-    virtual void update(float deltaTime);
-    virtual void draw(float width, float height, void* shader_byte_code, size_t size_shader);
+    virtual void update(float deltaTime) = 0;
+    virtual void draw(float width, float height, VertexShader *vs, PixelShader *ps) = 0;
     
 public:
     void setPosition(Vector3D pos);
+    void setPosition(float x, float y, float z);
     Vector3D getPosition();
 
     void setScale(Vector3D scale);
+    void setScale(float x, float y, float z);
 
     void setRotation(Vector3D rot);
+    void setRotation(float x, float y, float z);
 
     
 protected:
+
 
     Vector3D position;
     Vector3D scale;

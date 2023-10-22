@@ -1,6 +1,15 @@
 #include "Cube.h"
 #include <iostream>
 
+// * Set BEHAVIOR values to have different cube behaviors
+// * 0 - rotate by W/S keys
+// * 1 - Cube rotates on its own (if able)
+// * 2 - Uniformly scale and change positions
+// * 3 - Goes from cube to plane
+// * Other values to not do anything
+#define BEHAVIOR 1
+
+
 Cube::Cube(void *shader_byte_code, size_t size_shader) {
     
 	this->vb = GraphicsEngine::get()->createVertexBuffer();
@@ -39,6 +48,8 @@ Cube::~Cube() {
 void Cube::update(float deltaTime) {
 
 
+#if BEHAVIOR == 0 // ? Rotate by W/S
+
 	if(InputSystem::getInstance()->isKeyDown('S')){
 		m_delta_time += deltaTime;
 		m_delta_pos += deltaTime / 10.0f;
@@ -57,14 +68,62 @@ void Cube::update(float deltaTime) {
 
 		if(m_delta_pos > 1.0f) m_delta_pos = 0;
 	}
+
+#elif BEHAVIOR == 1 // ? Rotate by itself
+
+	m_delta_time += deltaTime;
+	m_delta_pos += deltaTime;
+	if(m_delta_pos >= 1) {
+		m_delta_pos = 0;
+	}
+	this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
+
+#elif BEHAVIOR == 2 // ? Uniform scale/pos loop
+	m_delta_time += deltaTime;
+	m_delta_pos += deltaTime ;// / 10.0f;
+
+	if(m_delta_pos >= 1) {
+		m_delta_pos = 0;
+		reverse = !reverse;
+	}
+	if(!reverse) {
+		this->setPosition(Vector3D::lerp(this->position, Vector3D(3.0f, 3.0f, 0.0f), m_delta_pos));
+		this->setScale(Vector3D::lerp(this->scale, Vector3D(0.25f, 0.25f, 0.25f), m_delta_pos));
+	}
+	else{
+		this->setPosition(Vector3D::lerp(this->position, Vector3D(-3.0f, -3.0f, 0), m_delta_pos));
+		this->setScale(Vector3D::lerp(this->scale, Vector3D(1, 1, 1), m_delta_pos));
+	}
+
+#elif BEHAVIOR == 3
+
+	m_delta_time += deltaTime;
+	m_delta_pos += deltaTime / 1.5f;
+
+	if(m_delta_pos >= 1) {
+		m_delta_pos = 0;
+		reverse = !reverse;
+	}
+	if(!reverse) {
+		this->setPosition(Vector3D::lerp(this->position, Vector3D(0.0f, 0.0f, 0.0f), m_delta_pos));
+		this->setScale(Vector3D::lerp(this->scale, Vector3D(1.0f, 1.0f, 1.0f), m_delta_pos));
+	}
+	else{
+		this->setPosition(Vector3D::lerp(this->position, Vector3D(0.0f, -2.0f, 0), m_delta_pos));
+		this->setScale(Vector3D::lerp(this->scale, Vector3D(3, 0, 3), m_delta_pos));
+	}
+	
+
+#endif
 }
 
-void Cube::draw(float width, float height, void *shader_byte_code, size_t size_shader)
+void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 {
 	constant cc;
 	cc.m_world.setIdentity();
-
 	Matrix4x4 temp;
+
+	cc.m_time = ::GetTickCount();
 
 	// * Scale
 	temp.setIdentity();
@@ -110,8 +169,8 @@ void Cube::draw(float width, float height, void *shader_byte_code, size_t size_s
     GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(this->vs, this->cb);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(this->ps, this->cb);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(this->vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(this->ps);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(vs);
+	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(ps);
 
 	// * Set Vertices of triangle to draw
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(this->vb);
@@ -121,6 +180,7 @@ void Cube::draw(float width, float height, void *shader_byte_code, size_t size_s
 
 	// * Draw triangle
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(this->ib->getSizeIndexList(),0, 0);
+	// GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(this->ib->getSizeIndexList(),0);
 
 	this->cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 
@@ -141,5 +201,14 @@ void Cube::setRotAx(char ax) {
 		case 'z':
 			ax_z = 1;
 			break;
+		case 'a':
+			ax_x = 1;
+			ax_y = 1;
+			ax_z = 1;
+			break;
+		default:
+			ax_x = 0;
+			ax_y = 0;
+			ax_z = 0;
 	}
 }

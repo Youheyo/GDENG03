@@ -1,8 +1,16 @@
 #include "Camera.h"
 #include <iostream>
 
+// * Set CAM_POS to 0 for default, other values to do #6 of MC0
+#define CAM_POS 0 
+
 Camera::Camera(std::string name) {
-    this->setPosition(Vector3D(0,0,-2.0f));
+#if CAM_POS == 0
+    this->setPosition(Vector3D(0, 0, -2.0f));
+#else
+    this->setPosition(Vector3D(0, 0, 2.0f));
+    this->setRotation(0, -2, 0);
+#endif
     InputSystem::getInstance()->addListener(this);
 }
 
@@ -10,40 +18,56 @@ Camera::~Camera() {
     
 }
 
-void Camera::update(float deltaTime) {
-    
+void Camera::draw(float width, float height, VertexShader *vs, PixelShader *ps)
+{
+}
+
+void Camera::update(float deltaTime)
+{
+
     float x = this->position.m_x;
     float y = this->position.m_y;
     float z = this->position.m_z;
 
-    float moveSpeed = 1.0f;
+    float currSpeed = moveSpeed;
 
-
+    if(InputSystem::getInstance()->isKeyDown('C')){
+        currSpeed *= 10.0f;
+    }
     // * Forward
     if(InputSystem::getInstance()->isKeyDown('W')){
-        z += deltaTime * moveSpeed;
+        z += deltaTime * currSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
     // * Backward
     if(InputSystem::getInstance()->isKeyDown('S')){
-        z -= deltaTime * moveSpeed;
+        z -= deltaTime * currSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
     // * Strafe Left
     if(InputSystem::getInstance()->isKeyDown('A')){
-        x -= deltaTime * moveSpeed;
+        x -= deltaTime * currSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
     // * Strafe Right
     if(InputSystem::getInstance()->isKeyDown('D')){
-        x += deltaTime * moveSpeed;
+        x += deltaTime * currSpeed;
         this->setPosition(Vector3D(x, y, z));
         this->updateViewMatrix();
     }
-
+    if(InputSystem::getInstance()->isKeyDown('Q')){
+        y += deltaTime * currSpeed;
+        this->setPosition(Vector3D(x, y, z));
+        this->updateViewMatrix();
+    }
+    if(InputSystem::getInstance()->isKeyDown('E')){
+        y -= deltaTime * currSpeed;
+        this->setPosition(Vector3D(x, y, z));
+        this->updateViewMatrix();
+    }
 }
 
 Matrix4x4 Camera::getViewMatrix() {

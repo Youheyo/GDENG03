@@ -12,6 +12,7 @@ public:
     Camera(std::string name);
     ~Camera();
 
+    void draw(float width, float height, VertexShader *vs, PixelShader *ps) override;
     void update(float deltaTime) override;
     Matrix4x4 getViewMatrix();
     void updateViewMatrix();
@@ -23,6 +24,9 @@ public:
     virtual void onLeftMouseUp(const Point deltaPos) override;
     virtual void onRightMouseDown(const Point deltaPos) override;
     virtual void onRightMouseUp(const Point deltaPos) override;
+
+private:
+    float moveSpeed = 1.0f;
 
 
 };

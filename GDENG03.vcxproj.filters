@@ -37,6 +37,18 @@
     <Filter Include="Engine\IndexBuffer">
       <UniqueIdentifier>{95fa2fb7-8a5c-43a0-9909-13e357e6b017}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GraphicsEngine\GameObject">
+      <UniqueIdentifier>{21a63d17-3b62-437e-a7f0-a0e2b1c23d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicsEngine\Camera">
+      <UniqueIdentifier>{64cc6e01-f946-489d-8d11-eb11bda61816}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicsEngine\EngineTime">
+      <UniqueIdentifier>{30437425-0f87-409e-810e-8b59d7436b1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GraphicsEngine\InputSystem">
+      <UniqueIdentifier>{3474196e-e923-4159-8ab0-9908d19cbf1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +83,27 @@
     </ClCompile>
     <ClCompile Include="Indexbuffer.cpp">
       <Filter>Engine\IndexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\GraphicsEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneCameraHandler.cpp">
+      <Filter>Engine\GraphicsEngine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTime.cpp">
+      <Filter>Engine\GraphicsEngine\EngineTime</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSystem.cpp">
+      <Filter>Engine\GraphicsEngine\InputSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Engine\GraphicsEngine\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +142,33 @@
     </ClInclude>
     <ClInclude Include="Indexbuffer.h">
       <Filter>Engine\IndexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\GraphicsEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneCameraHandler.h">
+      <Filter>Engine\GraphicsEngine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTime.h">
+      <Filter>Engine\GraphicsEngine\EngineTime</Filter>
+    </ClInclude>
+    <ClInclude Include="InputListener.h">
+      <Filter>Engine\GraphicsEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>Engine\GraphicsEngine\InputSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Engine\GraphicsEngine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4D.h">
+      <Filter>Engine\GraphicsEngine\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
