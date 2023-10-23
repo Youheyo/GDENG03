@@ -40,6 +40,7 @@ public:
     void setRotation(Vector3D rot);
     void setRotation(float x, float y, float z);
 
+	bool canAnimate = true;
     
 protected:
 

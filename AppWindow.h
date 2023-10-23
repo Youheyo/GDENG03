@@ -43,17 +43,29 @@ public:
 	virtual void onRightMouseUp(const Point deltaPos);
 
 private:
+#pragma region SwapChain, Buffers and Shaders
+
 	SwapChain* m_swap_chain;
+
 	VertexBuffer* m_vb;
 	IndexBuffer* m_ib;
+	
 	VertexShader* m_vs;
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
+#pragma endregion
 
+	// * Cube Objects
 	int target_amt = 1;
 	int curr_amt = 0;
 	std::vector<GameObject*> object_list;
+	bool canAnimate = true;
 
-	bool test_window = true;
+	bool show_demo_window = false;
+	bool show_scene_settings_window = true;
+
+
+	float my_color[4] = { 0.6f, 0, 0 , 1};
+
 
 };

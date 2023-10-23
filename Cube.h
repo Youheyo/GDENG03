@@ -65,8 +65,9 @@ private:
 	};
 
 	float m_delta_time = 0;
-	float rot_speed = 1;
 	float m_delta_pos = 0;
-	int ax_x = 0, ax_y = 0,ax_z = 0;
+
 	bool reverse = false;
+	int ax_x = 0, ax_y = 0,ax_z = 0;
+	float rot_speed = 1;
 };

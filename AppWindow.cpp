@@ -106,7 +106,7 @@ void AppWindow::onCreate()
 	InputSystem::getInstance()->showCursor(true);
 	SceneCameraHandler::initialize();
 
-	// Setup Dear ImGui context
+	// * Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
@@ -114,7 +114,7 @@ void AppWindow::onCreate()
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	// io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
 
-	// Setup Platform/Renderer backends
+	// * Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(m_hwnd);
 	ImGui_ImplDX11_Init(GraphicsEngine::get()->getDirect3DDevice(), GraphicsEngine::get()->getImmediateDeviceContext()->getDeviceContext());
 
@@ -130,45 +130,29 @@ void AppWindow::onUpdate()
 	
 	InputSystem::getInstance()->update();
 
-	// (Your code process and dispatch Win32 messages)
-	// Start the Dear ImGui frame
+	// * Start the Dear ImGui frame
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow(); // Show demo window! :)
 
-	ImGui::Begin("My First Tool", &test_window, ImGuiWindowFlags_MenuBar);
-	if (ImGui::BeginMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
-			if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
-			if (ImGui::MenuItem("Close", "Ctrl+W"))  { test_window = false; }
-			ImGui::EndMenu();
+	ImGui::Begin("Scene Settings", &show_scene_settings_window, ImGuiWindowFlags_NoResize);
+
+	ImGui::ColorEdit4("Scene Color", my_color);
+	ImGui::Checkbox("Show Demo Window", &show_demo_window);
+	
+	if(show_demo_window) ImGui::ShowDemoWindow();
+
+	if(ImGui::Button(canAnimate ?  "Pause animation" : "Resume Animation")){
+		canAnimate = !canAnimate;
+		for(int i = 0; i < object_list.size(); i++){
+			object_list[i]->canAnimate = canAnimate;
 		}
-		ImGui::EndMenuBar();
 	}
-	float my_color[4];
-	// Edit a color stored as 4 floats
-	ImGui::ColorEdit4("R Color", my_color);
 
-	// Generate samples and plot them
-	float samples[100];
-	for (int n = 0; n < 100; n++)
-		samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
-	ImGui::PlotLines("Samples", samples, 100);
-
-	// Display contents in a scrolling region
-	ImGui::TextColored(ImVec4(1,1,0,1), "Important Stuff");
-	ImGui::BeginChild("Scrolling");
-	for (int n = 0; n < 50; n++)
-		ImGui::Text("%04d: Some text", n);
-	ImGui::EndChild();
 	ImGui::End();
 
 	// * Clear Render Target
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, .6f, my_color[0], 1, 1);
+	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
 
 	// * Set Viewport of rendertarget
 	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(getWidth(), getHeight());

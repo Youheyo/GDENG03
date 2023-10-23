@@ -37,6 +37,7 @@ Cube::~Cube() {
 
 void Cube::update(float deltaTime) {
 
+#if 0
 	if(InputSystem::getInstance()->isKeyDown('S')){
 		m_delta_time += deltaTime;
 		m_delta_pos += deltaTime / 10.0f;
@@ -55,7 +56,16 @@ void Cube::update(float deltaTime) {
 
 		if(m_delta_pos > 1.0f) m_delta_pos = 0;
 	}
-
+#else
+	if(canAnimate){
+		m_delta_time += deltaTime;
+		m_delta_pos += deltaTime;
+		if(m_delta_pos >= 1) {
+				m_delta_pos = 0;
+		}
+		this->setRotation(Vector3D(m_delta_time * rot_speed * ax_x, m_delta_time * rot_speed * ax_y, m_delta_time * rot_speed * ax_z));
+	}
+#endif
 }
 
 void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
