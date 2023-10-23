@@ -54,4 +54,6 @@ private:
 	int curr_amt = 0;
 	std::vector<GameObject*> object_list;
 
+	bool test_window = true;
+
 };

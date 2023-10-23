@@ -30,11 +30,9 @@ Cube::Cube(void *shader_byte_code, size_t size_shader) {
 }
 
 Cube::~Cube() {
-    this->vb->release();
+	this->vb->release();
 	this->ib->release();
-	this->ps->release();
-	this->cb->release();
-	this->vs->release();
+	GameObject::~GameObject();
 }
 
 void Cube::update(float deltaTime) {
