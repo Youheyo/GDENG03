@@ -1,7 +1,7 @@
 #include "Cube.h"
 #include <iostream>
 
-Cube::Cube(void *shader_byte_code, size_t size_shader) {
+Cube::Cube(std::string name, void *shader_byte_code, size_t size_shader) : GameObject(name) {
     
 	this->vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);

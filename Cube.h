@@ -12,7 +12,7 @@
 class Cube : public GameObject{
 
 public:
-    Cube(void *shader_byte_code, size_t size_shader);
+    Cube(std::string name, void *shader_byte_code, size_t size_shader);
     ~Cube();
 
     void update(float deltaTime) override;

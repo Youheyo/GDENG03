@@ -3,6 +3,7 @@
 #include "Matrix4x4.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include <string>
 
 class GameObject{
 
@@ -23,9 +24,10 @@ struct constant{
 	unsigned int m_time;
 };
 
-    GameObject();
+    GameObject(std::string name);
     ~GameObject();
 
+    std::string getName();
     virtual void update(float deltaTime) = 0;
     virtual void draw(float width, float height, VertexShader *vs, PixelShader *ps) = 0;
     
@@ -44,6 +46,7 @@ public:
     
 protected:
 
+    std::string name;
 
     Vector3D position;
     Vector3D scale;

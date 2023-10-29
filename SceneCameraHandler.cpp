@@ -12,7 +12,7 @@ void SceneCameraHandler::initialize() {
 }
 
 void SceneCameraHandler::destroy() {
-    
+    delete sharedInstance;    
 }
 
 void SceneCameraHandler::update() {

@@ -1,12 +1,17 @@
 #pragma once
 #include <string>
+#include "UIManager.h"
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 typedef std::string String;
 
 class UIManager;
 
 class AUIScreen{
-    protected:
+
+protected:
     typedef std::string String;
     
     AUIScreen(String name);

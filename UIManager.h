@@ -1,4 +1,5 @@
 #pragma once
+#include "GraphicsEngine.h"
 #include "UINames.h"
 
 class UIManager {
@@ -13,6 +14,7 @@ public:
     static void initialize(HWND windowHandle);
     static void destroy();
 
+    void addUI(AUIScreen* ui);
     void drawAllUI();
 
     static const int WINDOW_WIDTH = 1440;

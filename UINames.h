@@ -12,8 +12,8 @@
 class UINames {
 
 public:
-    const String PROFILER_SCREEN = "PROFILER_SCREEN";
-    const String MENU_SCREEN = "MENU_SCREEN";
-    const String INSPECTOR_SCREEN = "INSPECTOR_SCREEN";
-    const String HIERARCHY_SCREEN = "HIERARCHY_SCREEN";
+    const std::string PROFILER_SCREEN = "PROFILER_SCREEN";
+    const std::string MENU_SCREEN = "MENU_SCREEN";
+    const std::string INSPECTOR_SCREEN = "INSPECTOR_SCREEN";
+    const std::string HIERARCHY_SCREEN = "HIERARCHY_SCREEN";
 };

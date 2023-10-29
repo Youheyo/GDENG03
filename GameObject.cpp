@@ -1,15 +1,22 @@
 #include "GameObject.h"
 #include <iostream>
 
-GameObject::GameObject()
+GameObject::GameObject(std::string name)
 {
+    this->name = name;
     this->position = Vector3D(0,0,0);
     this->scale = Vector3D(1,1,1);
     this->rotation = Vector3D(0,0,0);
+
 }
 
 GameObject::~GameObject() {
     
+}
+
+std::string GameObject::getName()
+{
+    return this->name;
 }
 
 void GameObject::update(float deltaTime)

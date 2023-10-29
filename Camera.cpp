@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include <iostream>
 
-Camera::Camera(std::string name) {
+Camera::Camera(std::string name) : GameObject(name) {
     this->setPosition(Vector3D(0, 0, -2.0f));
     InputSystem::getInstance()->addListener(this);
 }

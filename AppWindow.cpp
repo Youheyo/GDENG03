@@ -57,6 +57,11 @@ void AppWindow::onCreate()
     constant cc;
 	cc.m_time = 0;
 
+	GameObjectManager::initialize();
+
+#pragma region Cube Initialization
+
+#if 0
 	// * Parameters of cubes
 	int rot = -1; // ? rotation axis
 	this->target_amt = 50; // ? Target amount of cubes to instantiate
@@ -78,7 +83,7 @@ void AppWindow::onCreate()
 		float x_pos = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max_x - min_x)));
 		float y_pos = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max_y - min_y)));
 		float z_pos = -1.0 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max_z - min_x)));
-			Cube* cube = new Cube(shader_byte_code, size_shader);
+			Cube* cube = new Cube("Cube", shader_byte_code, size_shader);
 			cube->setPosition(Vector3D(x_pos, y_pos, z_pos));
 			cube->setScale(Vector3D(0.1f,0.1f,0.1f));
 			cube->setRotation(Vector3D(0,0,0));
@@ -102,21 +107,25 @@ void AppWindow::onCreate()
 		this->object_list.push_back(cube);
 	}
 
+#else
+
+	GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE, shader_byte_code, size_shader);
+
+	GameObject* object = GameObjectManager::getInstance()->getSelectedObject();
+	object->setPosition(0,2,0);
+	object->setScale(0.5f,0.5f,0.5f);
+	
+
+
+#endif
+
+
+#pragma endregion
+	
 	InputSystem::initialize();
 	InputSystem::getInstance()->showCursor(true);
+	UIManager::initialize(m_hwnd);
 	SceneCameraHandler::initialize();
-
-	// * Setup Dear ImGui context
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-	// io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
-
-	// * Setup Platform/Renderer backends
-	ImGui_ImplWin32_Init(m_hwnd);
-	ImGui_ImplDX11_Init(GraphicsEngine::get()->getDirect3DDevice(), GraphicsEngine::get()->getImmediateDeviceContext()->getDeviceContext());
 
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
 	m_cb->load(&cc, sizeof(constant));
@@ -130,27 +139,6 @@ void AppWindow::onUpdate()
 	
 	InputSystem::getInstance()->update();
 
-	// * Start the Dear ImGui frame
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-
-	ImGui::Begin("Scene Settings", &show_scene_settings_window, ImGuiWindowFlags_NoResize);
-
-	ImGui::ColorEdit4("Scene Color", my_color);
-	ImGui::Checkbox("Show Demo Window", &show_demo_window);
-	
-	if(show_demo_window) ImGui::ShowDemoWindow();
-
-	if(ImGui::Button(canAnimate ?  "Pause animation" : "Resume Animation")){
-		canAnimate = !canAnimate;
-		for(int i = 0; i < object_list.size(); i++){
-			object_list[i]->canAnimate = canAnimate;
-		}
-	}
-
-	ImGui::End();
-
 	// * Clear Render Target
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
 
@@ -161,18 +149,16 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	for(int x = 0; x < object_list.size(); x++){
-		object_list[x]->update(EngineTime::getDeltaTime());
-		object_list[x]->draw(getWidth(), getHeight(), m_vs, m_ps);
-	}
+	UIManager::getInstance()->drawAllUI();
+
+	// for(int x = 0; x < object_list.size(); x++){
+	// 	object_list[x]->update(EngineTime::getDeltaTime());
+	// 	object_list[x]->draw(getWidth(), getHeight(), m_vs, m_ps);
+	// }
+
+	GameObjectManager::getInstance()->updateAll();
 
 	SceneCameraHandler::getInstance()->update();
-	
-	// Rendering
-	// (Your code clears your framebuffer, renders your other stuff etc.)
-	ImGui::Render();
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	// (Your code calls swapchain's Present() function)
 
 	m_swap_chain->present(false);
 
@@ -191,11 +177,8 @@ void AppWindow::onDestroy()
 	m_ps->release();
 	
 
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-
 	InputSystem::destroy();
+	UIManager::destroy();
 	SceneCameraHandler::destroy();
 	GraphicsEngine::get()->release();
 
