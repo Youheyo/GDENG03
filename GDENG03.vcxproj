@@ -156,6 +156,7 @@
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="SceneCameraHandler.cpp" />
+    <ClCompile Include="SceneOutline.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="UIManager.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SceneCameraHandler.h" />
+    <ClInclude Include="SceneOutline.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="Toolbar.h" />
     <ClInclude Include="UIManager.h" />

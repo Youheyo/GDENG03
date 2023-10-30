@@ -147,6 +147,9 @@
     <ClCompile Include="UIManager.cpp">
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="SceneOutline.cpp">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -252,6 +255,9 @@
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClInclude>
     <ClInclude Include="UINames.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneOutline.h">
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClInclude>
   </ItemGroup>
