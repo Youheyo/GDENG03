@@ -38,15 +38,21 @@ public:
 
     void setScale(Vector3D scale);
     void setScale(float x, float y, float z);
+    Vector3D getScale();
 
     void setRotation(Vector3D rot);
     void setRotation(float x, float y, float z);
+    Vector3D getRotation();
+
 
 	bool canAnimate = true;
+    void setEnabled(bool enable);
+    bool isEnabled();
     
 protected:
 
     std::string name;
+    bool enabled = true;
 
     Vector3D position;
     Vector3D scale;

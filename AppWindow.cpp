@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "Toolbar.h"
 #include "SceneOutline.h"
+#include "Inspector.h"
 
 struct vertex {
 	Vector3D color;
@@ -70,6 +71,7 @@ void AppWindow::onCreate()
 	UINames names;
 	Toolbar* menu = new Toolbar(names.MENU_SCREEN);
 	SceneOutline* sceneOutline = new SceneOutline(names.HIERARCHY_SCREEN);
+	Inspector* inspector = new Inspector(names.INSPECTOR_SCREEN);
 
 	// * Scene Camera Initialization
 	SceneCameraHandler::initialize();

@@ -36,7 +36,6 @@ Cube::~Cube() {
 }
 
 void Cube::update(float deltaTime) {
-
 #if 0
 	if(InputSystem::getInstance()->isKeyDown('S')){
 		m_delta_time += deltaTime;
@@ -70,6 +69,8 @@ void Cube::update(float deltaTime) {
 
 void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 {
+	if(!this->enabled) return;
+
 	constant cc;
 	cc.m_world.setIdentity();
 	Matrix4x4 temp;
@@ -98,6 +99,7 @@ void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 	temp.setIdentity();
 	temp.setTranslation(this->position);
 	cc.m_world*=temp;
+
 
 	Matrix4x4 cameraMatrix = SceneCameraHandler::getInstance()->getSceneCameraViewMatrix();
 	cc.m_view = cameraMatrix;
@@ -128,10 +130,11 @@ void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 	// * Set Indices of triangle to draw
 	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(this->ib);
 
-
 	// * Draw triangle
 	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(this->ib->getSizeIndexList(),0, 0);
 	// GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(this->ib->getSizeIndexList(),0);
+
+
 
 	this->cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 

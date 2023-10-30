@@ -59,6 +59,8 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 			break;
 		case PLANE:
 			std::cout << "Plane Initialized" << std::endl;
+			object = new Cube("Plane", shaderByteCode, sizeShader);
+			object->setScale(1,0,1);
 			break;
 		case SPHERE:
 			std::cout << "Sphere Initialized" << std::endl;

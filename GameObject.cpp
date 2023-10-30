@@ -21,6 +21,7 @@ std::string GameObject::getName()
 
 void GameObject::update(float deltaTime)
 {
+
 }
 
 void GameObject::draw(float width, float height, VertexShader *vs, PixelShader *ps)
@@ -56,6 +57,11 @@ void GameObject::setScale(float x, float y, float z)
     this->scale.m_z = z;
 }
 
+Vector3D GameObject::getScale()
+{
+    return this->scale;
+}
+
 void GameObject::setRotation(Vector3D rot)
 {
     this->rotation = rot;
@@ -66,4 +72,19 @@ void GameObject::setRotation(float x, float y, float z)
     this->rotation.m_x = x;    
     this->rotation.m_y = y;    
     this->rotation.m_z = z;
+}
+
+Vector3D GameObject::getRotation()
+{
+    return this->rotation;
+}
+
+void GameObject::setEnabled(bool enable)
+{
+    this->enabled = enable;
+}
+
+bool GameObject::isEnabled()
+{
+    return this->enabled;
 }
