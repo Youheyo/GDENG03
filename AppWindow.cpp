@@ -6,6 +6,8 @@
 #include "Toolbar.h"
 #include "SceneOutline.h"
 #include "Inspector.h"
+#include "EngineProfiler.h"
+
 
 struct vertex {
 	Vector3D color;
@@ -72,6 +74,7 @@ void AppWindow::onCreate()
 	Toolbar* menu = new Toolbar(names.MENU_SCREEN);
 	SceneOutline* sceneOutline = new SceneOutline(names.HIERARCHY_SCREEN);
 	Inspector* inspector = new Inspector(names.INSPECTOR_SCREEN);
+	EngineProfiler* profiler = new EngineProfiler(names.PROFILER_SCREEN);
 
 	// * Scene Camera Initialization
 	SceneCameraHandler::initialize();

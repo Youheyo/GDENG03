@@ -16,7 +16,7 @@ void Inspector::drawUI() {
 
         // ? Check if Selected object is null
         if(this->selectedObject == nullptr){ 
-            ImGui::Text("No object is currently selected");
+            ImGui::Text("No object is currently selected. Select an object on the Scene");
         }
         else{
             String selectText = "Current Object: " + this->selectedObject->getName();

@@ -150,6 +150,10 @@
     <ClCompile Include="SceneOutline.cpp">
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Inspector.cpp" />
+    <ClCompile Include="EngineProfiler.cpp">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -258,6 +262,10 @@
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClInclude>
     <ClInclude Include="SceneOutline.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Inspector.h" />
+    <ClInclude Include="EngineProfiler.h">
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClInclude>
   </ItemGroup>
