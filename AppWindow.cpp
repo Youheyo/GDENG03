@@ -3,9 +3,7 @@
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
+#include "Toolbar.h"
 
 struct vertex {
 	Vector3D color;
@@ -57,11 +55,27 @@ void AppWindow::onCreate()
     constant cc;
 	cc.m_time = 0;
 
+#pragma region Manager Initialization
+
+	// * GameObject Initializations
 	GameObjectManager::initialize();
 
-#pragma region Cube Initialization
+	// * Input System Initialization
+	InputSystem::initialize();
+	InputSystem::getInstance()->showCursor(true);
 
+	// * UI Initialization
+	UIManager::initialize(m_hwnd);
+	UINames names;
+	Toolbar* menu = new Toolbar(names.MENU_SCREEN);
+
+	// * Scene Camera Initialization
+	SceneCameraHandler::initialize();
+#pragma endregion
+
+#pragma region Cube Initialization
 #if 0
+
 	// * Parameters of cubes
 	int rot = -1; // ? rotation axis
 	this->target_amt = 50; // ? Target amount of cubes to instantiate
@@ -107,25 +121,8 @@ void AppWindow::onCreate()
 		this->object_list.push_back(cube);
 	}
 
-#else
-
-	GameObjectManager::getInstance()->createObject(GameObjectManager::CUBE, shader_byte_code, size_shader);
-
-	GameObject* object = GameObjectManager::getInstance()->getSelectedObject();
-	object->setPosition(0,2,0);
-	object->setScale(0.5f,0.5f,0.5f);
-	
-
-
 #endif
-
-
 #pragma endregion
-	
-	InputSystem::initialize();
-	InputSystem::getInstance()->showCursor(true);
-	UIManager::initialize(m_hwnd);
-	SceneCameraHandler::initialize();
 
 	m_cb = GraphicsEngine::get()->createConstantBuffer();
 	m_cb->load(&cc, sizeof(constant));
@@ -153,10 +150,11 @@ void AppWindow::onUpdate()
 
 	// for(int x = 0; x < object_list.size(); x++){
 	// 	object_list[x]->update(EngineTime::getDeltaTime());
-	// 	object_list[x]->draw(getWidth(), getHeight(), m_vs, m_ps);
+	// 	object_list[x]->draw();
 	// }
 
 	GameObjectManager::getInstance()->updateAll();
+	GameObjectManager::getInstance()->renderAll(getWidth(), getHeight(), m_vs, m_ps);
 
 	SceneCameraHandler::getInstance()->update();
 

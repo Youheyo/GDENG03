@@ -1,6 +1,11 @@
 #pragma once
 #include "GraphicsEngine.h"
 #include "UINames.h"
+#include "AUIScreen.h"
+#include <vector>
+#include <unordered_map>
+
+class AUIScreen;
 
 class UIManager {
 
@@ -14,7 +19,6 @@ public:
     static void initialize(HWND windowHandle);
     static void destroy();
 
-    void addUI(AUIScreen* ui);
     void drawAllUI();
 
     static const int WINDOW_WIDTH = 1440;
@@ -29,7 +33,8 @@ private:
 
     static UIManager* sharedInstance;
 
-    HWND hwnd;
     UIList uiList;
     UITable uiTable;
+
+    friend class AUIScreen;
 };

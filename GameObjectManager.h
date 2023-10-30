@@ -14,6 +14,7 @@ public:
     typedef std::unordered_map<String, GameObject*> HashTable;
 
     enum PrimitiveType{
+        NONE,
         CUBE,
         PLANE,
         SPHERE

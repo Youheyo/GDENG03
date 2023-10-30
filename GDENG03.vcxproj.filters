@@ -52,6 +52,9 @@
     <Filter Include="IMGUI">
       <UniqueIdentifier>{4de7dbef-859c-493d-a0b7-7bddf3eb3256}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GraphicsEngine\UI">
+      <UniqueIdentifier>{283fad30-ef1f-4492-9692-777255e31cff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -131,6 +134,18 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_stdlib.cpp">
       <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectManager.cpp">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="AUIScreen.cpp">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolbar.cpp">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +238,21 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_stdlib.h">
       <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectManager.h">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AUIScreen.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbar.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UINames.h">
+      <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

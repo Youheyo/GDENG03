@@ -39,11 +39,6 @@ void UIManager::destroy(){
     delete sharedInstance;
 }
 
-void UIManager::addUI(AUIScreen* ui)
-{
-    sharedInstance->uiList.push_back(ui);
-}
-
 void UIManager::drawAllUI()
 {
     ImGui_ImplDX11_NewFrame();

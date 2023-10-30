@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Projects\GDENG03\imgui;%(AdditionalIncludeDirectories);C:\Users\Student\Documents\Github\GDENG03\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Bryan\Documents\GitHub\GDENG03\imgui;%(AdditionalIncludeDirectories);C:\Users\Student\Documents\Github\GDENG03\imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +140,7 @@
     <ClCompile Include="DeviceContext.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="SceneCameraHandler.cpp" />
     <ClCompile Include="SwapChain.cpp" />
+    <ClCompile Include="Toolbar.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="DeviceContext.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="SceneCameraHandler.h" />
     <ClInclude Include="SwapChain.h" />
+    <ClInclude Include="Toolbar.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UINames.h" />
     <ClInclude Include="Vector3D.h" />

@@ -1,11 +1,10 @@
 #pragma once
 #include <string>
+#include "UINames.h"
 #include "UIManager.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
-
-typedef std::string String;
 
 class UIManager;
 
@@ -17,10 +16,10 @@ protected:
     AUIScreen(String name);
     ~AUIScreen();
 
-    String getName();
+    std::string getName();
     virtual void drawUI() = 0;
 
-    String name;
+    std::string name;
 
     friend class UIManager;
 };

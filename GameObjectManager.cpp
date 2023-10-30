@@ -1,5 +1,5 @@
 #include "GameObjectManager.h"
-
+GameObjectManager* GameObjectManager::sharedInstance = NULL;
 
 GameObjectManager* GameObjectManager::getInstance() {
 	return sharedInstance;
@@ -53,22 +53,28 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 	
 	switch (type)
 	{
-	case CUBE:
-		std::cout << "Cube Initialized" << std::endl;
-		Cube* cube = new Cube("Cube", shaderByteCode, sizeShader);
-		object = cube;
-		break;
-	case PLANE:
-		std::cout << "Plane Initialized" << std::endl;
-		break;
-	case SPHERE:
-		std::cout << "Sphere Initialized" << std::endl;
-		break;
+		case CUBE:
+			std::cout << "Cube Initialized" << std::endl;
+			object = new Cube("Cube", shaderByteCode, sizeShader);
+			break;
+		case PLANE:
+			std::cout << "Plane Initialized" << std::endl;
+			break;
+		case SPHERE:
+			std::cout << "Sphere Initialized" << std::endl;
+			break;
 
-	default:
-		break;
+		default:
+			object = nullptr;
+			break;
 	}
 
+	if(object == nullptr){
+		std::cout << "\x1B[31mNo object has been created. Object is either unsupported or unimplemented!\x1B[0m" << std::endl;
+		return;
+	}
+
+	sharedInstance->addObject(object);
 	setSelectedObject(object);
 
 }
@@ -99,6 +105,9 @@ GameObject* GameObjectManager::getSelectedObject() {
 	return sharedInstance->selectedObject;
 }
 
+GameObjectManager::GameObjectManager(){
+	
+}
 
 GameObjectManager::~GameObjectManager() {
     
