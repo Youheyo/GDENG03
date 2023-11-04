@@ -153,7 +153,6 @@ void AppWindow::onUpdate()
 	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
-	UIManager::getInstance()->drawAllUI();
 
 	// for(int x = 0; x < object_list.size(); x++){
 	// 	object_list[x]->update(EngineTime::getDeltaTime());
@@ -165,6 +164,8 @@ void AppWindow::onUpdate()
 
 	SceneCameraHandler::getInstance()->update();
 
+	UIManager::getInstance()->drawAllUI();
+	
 	m_swap_chain->present(false);
 
 }

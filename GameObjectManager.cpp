@@ -99,6 +99,16 @@ void GameObjectManager::deleteObjectByname(String name) {
 	}
 }
 
+void GameObjectManager::setSelectedObject(String name)
+{
+	for(int i = 0 ; i < sharedInstance->object_list.size(); i++){
+		if(sharedInstance->object_list[i]->getName() == name){
+			sharedInstance->selectedObject = sharedInstance->object_list[i];
+			break;
+		}
+	}
+}
+
 void GameObjectManager::setSelectedObject(GameObject* gameObject) {
 	sharedInstance->selectedObject = gameObject;
 }
