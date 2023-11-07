@@ -10,6 +10,7 @@ UIManager::UIManager(HWND windowHandle){
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	// io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;	// Multiple Viewports
 
 	// * Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(windowHandle);
@@ -51,4 +52,9 @@ void UIManager::drawAllUI()
 
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	if(ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable ){
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
 }
