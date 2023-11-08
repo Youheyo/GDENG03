@@ -7,7 +7,7 @@ Camera::Camera(std::string name) : GameObject(name) {
 }
 
 Camera::~Camera() {
-    
+    InputSystem::getInstance()->removeListener(this);
 }
 
 void Camera::draw(float width, float height, VertexShader *vs, PixelShader *ps)
@@ -17,10 +17,6 @@ void Camera::draw(float width, float height, VertexShader *vs, PixelShader *ps)
 void Camera::update(float deltaTime)
 {
 
-    float x = this->position.m_x;
-    float y = this->position.m_y;
-    float z = this->position.m_z;
-
     float currSpeed = moveSpeed;
 
     if(InputSystem::getInstance()->isKeyDown('C')){
@@ -28,42 +24,36 @@ void Camera::update(float deltaTime)
     }
     // * Forward
     if(InputSystem::getInstance()->isKeyDown('W')){
-        z += deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+        this->m_cam_forward = 1.0;
         this->updateViewMatrix();
     }
     // * Backward
     if(InputSystem::getInstance()->isKeyDown('S')){
-        z -= deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+        this->m_cam_forward = -1.0f;
         this->updateViewMatrix();
     }
     // * Strafe Left
     if(InputSystem::getInstance()->isKeyDown('A')){
-        x -= deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+        this->m_cam_rightward = -1.0f;
         this->updateViewMatrix();
     }
     // * Strafe Right
     if(InputSystem::getInstance()->isKeyDown('D')){
-        x += deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+		this->m_cam_rightward = 1.0;
         this->updateViewMatrix();
     }
     if(InputSystem::getInstance()->isKeyDown('Q')){
-        y += deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+        this->m_cam_upward = 1.0;
         this->updateViewMatrix();
     }
     if(InputSystem::getInstance()->isKeyDown('E')){
-        y -= deltaTime * currSpeed;
-        this->setPosition(Vector3D(x, y, z));
+        this->m_cam_upward = -1.0;
         this->updateViewMatrix();
     }
 }
 
 Matrix4x4 Camera::getViewMatrix() {
-    return this->localMatrix;
+    return this->m_view_cam;
 }
 
 void Camera::updateViewMatrix()
@@ -80,16 +70,16 @@ void Camera::updateViewMatrix()
     temp.setRotationY(this->rotation.m_y);
     worldCam *= temp;
 
-    temp.setIdentity();
-    temp.setRotationZ(this->rotation.m_z);
-    worldCam *= temp;
 
-    temp.setIdentity();
-    temp.setTranslation(this->position);
+    Vector3D new_pos = this->localMatrix.getTranslation() + worldCam.getZDirection() * (m_cam_forward * this->speed);
+    new_pos = new_pos + worldCam.getXDirection() * (m_cam_rightward * this->speed);
+    new_pos = new_pos + worldCam.getYDirection() * (m_cam_upward * this->speed);
+    temp.setTranslation(new_pos);
     worldCam *= temp;
+    this->localMatrix = worldCam;
 
     worldCam.getInverse();
-    this->localMatrix = worldCam;
+    this->m_view_cam = worldCam;
 }
 
 void Camera::onKeyDown(int key) {
@@ -97,11 +87,12 @@ void Camera::onKeyDown(int key) {
 }
 
 void Camera::onKeyUp(int key) {
-    
+    this->m_cam_forward = 0.0f;
+    this->m_cam_rightward = 0.0f;
+    this->m_cam_upward = 0.0f;
 }
 
 void Camera::onMouseMove(const Point deltaPos) {
-
 
 		float speed = 0.001f;
 

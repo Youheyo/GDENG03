@@ -28,5 +28,16 @@ public:
 private:
     float moveSpeed = 1.0f;
 
+    float m_cam_rot_x = 0.0f;
+    float m_cam_rot_y = 0.0f;
+
+    float m_cam_forward = 0.0f;
+    float m_cam_rightward = 0.0f;
+    float m_cam_upward = 0.0f;
+
+    float speed = 0.1f;
+    float mouse_sensitivity = 0.01f;
+
+    Matrix4x4 m_view_cam;
 
 };
