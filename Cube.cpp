@@ -3,35 +3,37 @@
 
 Cube::Cube(std::string name, void *shader_byte_code, size_t size_shader) : GameObject(name) {
     
-	this->vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);
 
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	this->vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-	this->vb->load(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	this->vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
+	this->vb = GraphicsEngine::get()->getRenderSystem()->createVertexBuffer(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
+	//this->vb->load(vertex_list, sizeof(vertex), size_list, shader_byte_code, size_shader);
 
-	GraphicsEngine::get()->releaseCompiledShader();	
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
-	this->ib = GraphicsEngine::get()->createIndexBuffer();
 	UINT size_index_list = ARRAYSIZE(index_list);
-	this->ib->load(index_list, size_index_list);
+	this->ib = GraphicsEngine::get()->getRenderSystem()->createIndexBuffer(index_list, size_index_list);
+	//this->ib->load(index_list, size_index_list);
 
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	this->ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	this->ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 	
-	GraphicsEngine::get()->releaseCompiledShader();	
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
     constant cc;
 	cc.m_time = 0;
 
-	this->cb = GraphicsEngine::get()->createConstantBuffer();
-	this->cb->load(&cc, sizeof(constant));
+	this->cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+	//this->cb->load(&cc, sizeof(constant));
 
 }
 
 Cube::~Cube() {
-	this->vb->release();
-	this->ib->release();
+	this->vb->~VertexBuffer();
+	this->ib->~IndexBuffer();
+	//this->vb->release();
+	//this->ib->release();
 	GameObject::~GameObject();
 }
 
@@ -119,24 +121,24 @@ void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 	// 	4.0f
 	// );
 
-    GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(this->vs, this->cb);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setConstantBuffer(this->ps, this->cb);
+    GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(this->vs, this->cb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setConstantBuffer(this->ps, this->cb);
 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(ps);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(ps);
 
 	// * Set Vertices of triangle to draw
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexBuffer(this->vb);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexBuffer(this->vb);
 	// * Set Indices of triangle to draw
-	GraphicsEngine::get()->getImmediateDeviceContext()->setIndexBuffer(this->ib);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setIndexBuffer(this->ib);
 
 	// * Draw triangle
-	GraphicsEngine::get()->getImmediateDeviceContext()->drawIndexedTriangleList(this->ib->getSizeIndexList(),0, 0);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->drawIndexedTriangleList(this->ib->getSizeIndexList(),0, 0);
 	// GraphicsEngine::get()->getImmediateDeviceContext()->drawTriangleList(this->ib->getSizeIndexList(),0);
 
 
 
-	this->cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+	this->cb->update(GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext(), &cc);
 
 }
 

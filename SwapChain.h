@@ -1,29 +1,24 @@
 #pragma once
-#include "GraphicsEngine.h"
-
-class DeviceContext;
+#include <d3d11.h>
+#include "Prerequisites.h"
 
 class SwapChain
 {
 public:
-	SwapChain();
-	~SwapChain();
+	//Initialize SwapChain for a window
+	SwapChain(HWND hwnd, UINT width, UINT height, RenderSystem* system);
 
-	bool init(HWND hwnd, UINT width, UINT height);
 
 	bool present(bool vsync);
 
-	bool release();
-
-	ID3D11RenderTargetView* getRenderTargetView();
-	ID3D11DepthStencilView* getDepthStencilView();
-
+	//Release the swap chain
+	~SwapChain();
 private:
 	IDXGISwapChain* m_swap_chain;
-
 	ID3D11RenderTargetView* m_rtv;
 	ID3D11DepthStencilView* m_dsv;
+	RenderSystem* m_system = nullptr;
 
+private:
 	friend class DeviceContext;
-
 };

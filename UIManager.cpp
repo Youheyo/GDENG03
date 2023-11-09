@@ -14,7 +14,7 @@ UIManager::UIManager(HWND windowHandle){
 
 	// * Setup Platform/Renderer backends
 	ImGui_ImplWin32_Init(windowHandle);
-	ImGui_ImplDX11_Init(GraphicsEngine::get()->getDirect3DDevice(), GraphicsEngine::get()->getImmediateDeviceContext()->getDeviceContext());
+	ImGui_ImplDX11_Init(GraphicsEngine::get()->getRenderSystem()->getDirect3DDevice(), GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->getDeviceContext());
 
 }
 

@@ -5,6 +5,8 @@
 #include <vector>
 #include <unordered_map>
 
+#include "DeviceContext.h"
+
 class AUIScreen;
 
 class UIManager {

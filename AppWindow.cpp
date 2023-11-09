@@ -38,23 +38,23 @@ void AppWindow::onCreate()
 {
 	Window::onCreate();
 	GraphicsEngine::get()->init();
-	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+	m_swap_chain = GraphicsEngine::get()->getRenderSystem()->createSwapChain(this->m_hwnd, getWidth(), getHeight());
 
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
+	//RECT rc = this->getClientWindowRect();
+	//m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
 
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->getRenderSystem()->createVertexShader(shader_byte_code, size_shader);
 
-	GraphicsEngine::get()->releaseCompiledShader();	
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	GraphicsEngine::get()->getRenderSystem()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->getRenderSystem()->createPixelShader(shader_byte_code, size_shader);
 	
-	GraphicsEngine::get()->releaseCompiledShader();	
+	GraphicsEngine::get()->getRenderSystem()->releaseCompiledShader();
 
     constant cc;
 	cc.m_time = 0;
@@ -131,8 +131,8 @@ void AppWindow::onCreate()
 #endif
 #pragma endregion
 
-	m_cb = GraphicsEngine::get()->createConstantBuffer();
-	m_cb->load(&cc, sizeof(constant));
+	m_cb = GraphicsEngine::get()->getRenderSystem()->createConstantBuffer(&cc, sizeof(constant));
+	//m_cb->load(&cc, sizeof(constant));
 
 }
 
@@ -144,14 +144,14 @@ void AppWindow::onUpdate()
 	InputSystem::getInstance()->update();
 
 	// * Clear Render Target
-	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
 
 	// * Set Viewport of rendertarget
-	GraphicsEngine::get()->getImmediateDeviceContext()->setViewportSize(getWidth(), getHeight());
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setViewportSize(getWidth(), getHeight());
 
 	// * Set Default Shader in Graphics Pipeline 
-	GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
-	GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setVertexShader(m_vs);
+	GraphicsEngine::get()->getRenderSystem()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
 
 	// for(int x = 0; x < object_list.size(); x++){
@@ -173,14 +173,24 @@ void AppWindow::onUpdate()
 void AppWindow::onDestroy()
 {
 	Window::onDestroy();
-	m_vb->release();
-	m_ib->release();
-	m_cb->release();
 
-	m_swap_chain->release();
+	m_vb->~VertexBuffer();
+	m_ib->~IndexBuffer();
+	m_cb->~ConstantBuffer();
+
+	m_swap_chain->~SwapChain();
+
+	m_vs->~VertexShader();
+	m_ps->~PixelShader();
+
+	//m_vb->release();
+	//m_ib->release();
+	//m_cb->release();
+
+	//m_swap_chain->release();
 	
-	m_vs->release();
-	m_ps->release();
+	//m_vs->release();
+	//m_ps->release();
 	
 
 	InputSystem::destroy();

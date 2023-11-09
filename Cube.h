@@ -9,6 +9,9 @@
 #include "EngineTime.h"
 #include "SceneCameraHandler.h"
 
+#include "DeviceContext.h"
+
+
 class Cube : public GameObject{
 
 public:
