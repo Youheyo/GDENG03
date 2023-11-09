@@ -6,6 +6,7 @@
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
 #include "Indexbuffer.h"
+#include "RasterizerState.h"
 
 class SwapChain;
 class VertexBuffer;
@@ -13,6 +14,7 @@ class ConstantBuffer;
 class VertexShader;
 class PixelShader;
 class IndexBuffer;
+class RasterizerState;
 
 class DeviceContext{
 	
@@ -28,6 +30,11 @@ public:
 	void drawIndexedTriangleList(UINT index_count, UINT start_vertex_index, UINT start_index_location);
 	void drawTriangleStrip(UINT vertex_count, UINT start_vertex_index);
 
+	void setRSState(RasterizerState* rasterState);
+
+	void setShaderResource(ID3D11ShaderResourceView* srv);
+	ID3D11ShaderResourceView* getShaderResource();
+
 	void setViewportSize(UINT width, UINT height);
 
 	void setVertexShader(VertexShader* vertex_shader);
@@ -42,7 +49,9 @@ public:
 
 private:
 	ID3D11DeviceContext* m_device_context;
-
+	ID3D11ShaderResourceView* srv;
+	
 	friend class ConstantBuffer;
+	friend class RasterizerState;
 };
 

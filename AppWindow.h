@@ -17,6 +17,7 @@
 #include "SceneCameraHandler.h"
 #include "UIManager.h"
 #include "GameObjectManager.h"
+#include "RasterizerState.h"
 
 class AppWindow : public Window, public InputListener
 {
@@ -55,6 +56,11 @@ private:
 	VertexShader* m_vs;
 	PixelShader* m_ps;
 	ConstantBuffer* m_cb;
+
+	RasterizerState* m_rss_wire;
+	RasterizerState* m_rss_solid;
+
+	bool wireMode = false;
 #pragma endregion
 
 	// * Cube Objects

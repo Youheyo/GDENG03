@@ -119,6 +119,16 @@ PixelShader *GraphicsEngine::createPixelShader(const void *shader_byte_code, siz
 	return ps;
 }
 
+RasterizerState *GraphicsEngine::createRasterizerState(bool isWire)
+{
+	RasterizerState* rs = new RasterizerState();
+	if(!rs->load(isWire)){
+		rs->release();
+		return nullptr;
+	}
+	return rs;
+}
+
 bool GraphicsEngine::compileVertexShader(const wchar_t* file_name, const char* entry_point_name, void** shader_byte_code, size_t* byte_code_size)
 {
 	ID3DBlob* error_blob = nullptr;

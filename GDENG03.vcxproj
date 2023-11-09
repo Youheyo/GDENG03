@@ -157,6 +157,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="RasterizerState.cpp" />
     <ClCompile Include="SceneCameraHandler.cpp" />
     <ClCompile Include="SceneOutline.cpp" />
     <ClCompile Include="SwapChain.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="RasterizerState.h" />
     <ClInclude Include="SceneCameraHandler.h" />
     <ClInclude Include="SceneOutline.h" />
     <ClInclude Include="SwapChain.h" />

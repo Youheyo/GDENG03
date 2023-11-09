@@ -8,7 +8,6 @@
 #include "Inspector.h"
 #include "EngineProfiler.h"
 
-
 struct vertex {
 	Vector3D color;
 	Vector3D color1;
@@ -58,6 +57,9 @@ void AppWindow::onCreate()
 
     constant cc;
 	cc.m_time = 0;
+
+	m_rss_wire = GraphicsEngine::get()->createRasterizerState(true);
+	m_rss_solid = GraphicsEngine::get()->createRasterizerState(false);
 
 #pragma region Manager Initialization
 
@@ -138,12 +140,18 @@ void AppWindow::onCreate()
 
 void AppWindow::onUpdate()
 {
-
 	Window::onUpdate();
 	
 	InputSystem::getInstance()->update();
 
 	// * Clear Render Target
+	if(wireMode){
+		GraphicsEngine::get()->getImmediateDeviceContext()->setRSState(m_rss_wire);
+	}
+	else{
+		GraphicsEngine::get()->getImmediateDeviceContext()->setRSState(m_rss_solid);
+
+	}
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
 
 	// * Set Viewport of rendertarget
