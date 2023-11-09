@@ -14,8 +14,10 @@ public:
 	~GraphicsEngine();
 public:
 	RenderSystem* getRenderSystem();
+	TextureManager* getTextureManager();
 public:
 	static GraphicsEngine* get();
 private:
 	RenderSystem* m_render_system = nullptr;
+	TextureManager* m_tex_manager = nullptr;
 };
