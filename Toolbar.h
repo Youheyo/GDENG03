@@ -5,7 +5,7 @@
 class Toolbar : public AUIScreen{
 
 public:
-    Toolbar(String name);
+    Toolbar(String name, bool* wireMode);
     ~Toolbar();
 
     void drawUI() override;
@@ -14,5 +14,6 @@ private:
 
     String name;
     bool toolbar_active = true;
+    bool* rendermode;
 
 };

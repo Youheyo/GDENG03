@@ -3,7 +3,8 @@
 #include "SceneCameraHandler.h"
 // * Appears at the top of window
 
-Toolbar::Toolbar(String name) : AUIScreen(name) {
+Toolbar::Toolbar(String name, bool* wiremode) : AUIScreen(name) {
+	rendermode = wiremode;
 }
 
 Toolbar::~Toolbar() {
@@ -66,6 +67,21 @@ void Toolbar::drawUI() {
 				ImGui::EndMenu();
 			}
 
+			if (ImGui::BeginMenu("Render Modes"))
+			{
+				ImGui::SeparatorText("Render Modes"); // Render modes
+				if (ImGui::MenuItem("Lit"))
+				{	
+					*rendermode = false;
+					std::cout << "Render mode: Lit mode\n";
+				}
+				if (ImGui::MenuItem("Wireframe"))
+				{
+					*rendermode = true;
+					std::cout << "Render mode: Wireframe mode\n";
+				}
+				ImGui::EndMenu();
+			}
 	ImGui::EndMainMenuBar();
 
 	}

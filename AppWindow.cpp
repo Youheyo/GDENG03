@@ -73,7 +73,7 @@ void AppWindow::onCreate()
 	// * UI Initialization
 	UIManager::initialize(m_hwnd);
 	UINames names;
-	Toolbar* menu = new Toolbar(names.MENU_SCREEN);
+	Toolbar* menu = new Toolbar(names.MENU_SCREEN, &wireMode);
 	SceneOutline* sceneOutline = new SceneOutline(names.HIERARCHY_SCREEN);
 	Inspector* inspector = new Inspector(names.INSPECTOR_SCREEN);
 	EngineProfiler* profiler = new EngineProfiler(names.PROFILER_SCREEN);
@@ -150,7 +150,6 @@ void AppWindow::onUpdate()
 	}
 	else{
 		GraphicsEngine::get()->getImmediateDeviceContext()->setRSState(m_rss_solid);
-
 	}
 	GraphicsEngine::get()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain, my_color[0], my_color[1], my_color[2], my_color[3]);
 
