@@ -1,5 +1,6 @@
 #include "Toolbar.h"
 #include <iostream>
+#include "SceneCameraHandler.h"
 // * Appears at the top of window
 
 Toolbar::Toolbar(String name) : AUIScreen(name) {
@@ -47,7 +48,23 @@ void Toolbar::drawUI() {
 				}
 
 			ImGui::EndMenu(); // ? End for GameObject Menu
-			} 
+			}
+
+			if (ImGui::BeginMenu("View Modes"))
+			{
+				ImGui::SeparatorText("Projection Modes"); // view/projection modes
+				if (ImGui::MenuItem("Perspective View"))
+				{
+					SceneCameraHandler::getInstance()->getSceneCamera()->setPerspectiveView();
+					std::cout << "Projection mode: PERSPECTIVE VIEW\n";
+				}
+				if (ImGui::MenuItem("Topdown View"))
+				{
+					SceneCameraHandler::getInstance()->getSceneCamera()->setTopDownView();
+					std::cout << "Projection mode: TOPDOWN VIEW\n";
+				}
+				ImGui::EndMenu();
+			}
 
 	ImGui::EndMainMenuBar();
 
