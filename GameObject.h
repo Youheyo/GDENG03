@@ -45,7 +45,7 @@ public:
     Vector3D getRotation();
 
 
-	bool canAnimate = true;
+	bool canAnimate = false;
     void setEnabled(bool enable);
     bool isEnabled();
     

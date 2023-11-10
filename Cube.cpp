@@ -55,7 +55,7 @@ void Cube::update(float deltaTime) {
 
 		if(m_delta_pos > 1.0f) m_delta_pos = 0;
 	}
-#else
+#elif 0
 	if(canAnimate){
 		m_delta_time += deltaTime;
 		m_delta_pos += deltaTime;
@@ -78,25 +78,20 @@ void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 	cc.m_time = ::GetTickCount();
 
 	// * Scale
-	temp.setIdentity();
 	temp.setScale(this->scale);
 	cc.m_world*=temp;
 
 	// * Rotation XYZ
-	temp.setIdentity();
 	temp.setRotationZ(this->rotation.m_z);
 	cc.m_world*=temp;
 
-	temp.setIdentity();
 	temp.setRotationY(this->rotation.m_y);
 	cc.m_world*=temp;
 
-	temp.setIdentity();
 	temp.setRotationX(this->rotation.m_x);
 	cc.m_world*=temp;
 
 	// * Translate
-	temp.setIdentity();
 	temp.setTranslation(this->position);
 	cc.m_world*=temp;
 
