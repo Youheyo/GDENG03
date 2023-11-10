@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Bryan\Documents\GitHub\GDENG03\imgui;%(AdditionalIncludeDirectories);D:\Projects\GDENG03\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)imgui;C:\Users\Bryan\Documents\GitHub\GDENG03\imgui;%(AdditionalIncludeDirectories);D:\Projects\GDENG03\imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
