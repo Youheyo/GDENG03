@@ -1,11 +1,11 @@
 #pragma once
 #include "Matrix4x4.h"
 #include "InputSystem.h"
-#include "GameObject.h"
+#include "AGameObject.h"
 #include "Point.h"
 #include <string>
 
-class Camera : public GameObject, public InputListener
+class Camera : public AGameObject, public InputListener
 {
 public:
     Camera(std::string name);

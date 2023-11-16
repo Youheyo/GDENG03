@@ -1,4 +1,5 @@
 #pragma once
+#define NOMINMAX // ? Avoid conflict with Windows.h MIN and MAX declarations
 #include <Windows.h>
 #include "EngineTime.h"
 

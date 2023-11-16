@@ -12,7 +12,7 @@ public:
 
 private:
 
-    GameObject* selectedObject = nullptr;
+    AGameObject* selectedObject = nullptr;
     bool inspector_open = true;
 
     float pos_slider_speed = 0.5f;

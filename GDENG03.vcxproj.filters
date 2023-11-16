@@ -55,6 +55,15 @@
     <Filter Include="Engine\GraphicsEngine\UI">
       <UniqueIdentifier>{283fad30-ef1f-4492-9692-777255e31cff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GraphicsEngine\RasterizerState">
+      <UniqueIdentifier>{ef0dac14-019e-4633-a1e8-c28acbc25ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\PhysicsEngine">
+      <UniqueIdentifier>{1e6eb745-85df-483c-81a1-5520c4270d87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ComponentSystem">
+      <UniqueIdentifier>{2fcef098-cc1a-4d09-9678-3d02b708d2c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="SceneCameraHandler.cpp">
       <Filter>Engine\GraphicsEngine\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Engine\GraphicsEngine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="EngineTime.cpp">
       <Filter>Engine\GraphicsEngine\EngineTime</Filter>
@@ -156,6 +162,24 @@
     <ClCompile Include="Inspector.cpp">
       <Filter>Engine\GraphicsEngine\UI</Filter>
     </ClCompile>
+    <ClCompile Include="AGameObject.cpp">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RasterizerState.cpp">
+      <Filter>Engine\GraphicsEngine\RasterizerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsComponent.cpp">
+      <Filter>Engine\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>Engine\PhysicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="AComponent.cpp">
+      <Filter>Engine\ComponentSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseComponentSystem.cpp">
+      <Filter>Engine\ComponentSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -202,9 +226,6 @@
     </ClInclude>
     <ClInclude Include="SceneCameraHandler.h">
       <Filter>Engine\GraphicsEngine\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Engine\GraphicsEngine\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="EngineTime.h">
       <Filter>Engine\GraphicsEngine\EngineTime</Filter>
@@ -271,6 +292,24 @@
     </ClInclude>
     <ClInclude Include="Inspector.h">
       <Filter>Engine\GraphicsEngine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="AGameObject.h">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="RasterizerState.h">
+      <Filter>Engine\GraphicsEngine\RasterizerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Engine\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>Engine\PhysicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="AComponent.h">
+      <Filter>Engine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseComponentSystem.h">
+      <Filter>Engine\ComponentSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,17 +27,17 @@ void Inspector::drawUI() {
             this->selectedObject->setEnabled(objectEnable);
 
 #pragma region Object param Getting
-            pos[0] = this->selectedObject->getPosition().m_x;
-            pos[1] = this->selectedObject->getPosition().m_y;
-            pos[2] = this->selectedObject->getPosition().m_z;
+            pos[0] = this->selectedObject->getPosition().getX();
+            pos[1] = this->selectedObject->getPosition().getY();
+            pos[2] = this->selectedObject->getPosition().getZ();
 
-            rot[0] = this->selectedObject->getRotation().m_x;
-            rot[1] = this->selectedObject->getRotation().m_y;
-            rot[2] = this->selectedObject->getRotation().m_z;
+            rot[0] = this->selectedObject->getRotation().getX();
+            rot[1] = this->selectedObject->getRotation().getY();
+            rot[2] = this->selectedObject->getRotation().getZ();
 
-            scale[0] = this->selectedObject->getScale().m_x;
-            scale[1] = this->selectedObject->getScale().m_y;
-            scale[2] = this->selectedObject->getScale().m_z;
+            scale[0] = this->selectedObject->getScale().getX();
+            scale[1] = this->selectedObject->getScale().getY();
+            scale[2] = this->selectedObject->getScale().getZ();
 #pragma endregion
             
             ImGui::DragFloat3("Position", pos, pos_slider_speed);

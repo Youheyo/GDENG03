@@ -35,9 +35,7 @@ void AGameObject::setPosition(Vector3D pos)
 
 void AGameObject::setPosition(float x, float y, float z)
 {
-    this->position.m_x = x;
-    this->position.m_y = y;
-    this->position.m_z = z;
+	this->position = Vector3D(x, y, z);
 }
 
 Vector3D AGameObject::getPosition()
@@ -52,9 +50,7 @@ void AGameObject::setScale(Vector3D scale)
 
 void AGameObject::setScale(float x, float y, float z)
 {
-    this->scale.m_x = x;
-    this->scale.m_y = y;
-    this->scale.m_z = z;
+    this->scale = Vector3D(x, y, z);
 }
 
 Vector3D AGameObject::getScale()
@@ -69,9 +65,7 @@ void AGameObject::setRotation(Vector3D rot)
 
 void AGameObject::setRotation(float x, float y, float z)
 {
-    this->rotation.m_x = x;    
-    this->rotation.m_y = y;    
-    this->rotation.m_z = z;
+    this->rotation = Vector3D(x, y, z);
 }
 
 Vector3D AGameObject::getRotation()
@@ -87,4 +81,54 @@ void AGameObject::setEnabled(bool enable)
 bool AGameObject::isEnabled()
 {
     return this->enabled;
+}
+
+void AGameObject::recomputeMatrix(float matrix[16]) {
+    float matrix4x4[4][4];
+	matrix4x4[0][0] = matrix[0];
+	matrix4x4[0][1] = matrix[1];
+	matrix4x4[0][2] = matrix[2];
+	matrix4x4[0][3] = matrix[3];
+
+	matrix4x4[1][0] = matrix[4];
+	matrix4x4[1][1] = matrix[5];
+	matrix4x4[1][2] = matrix[6];
+	matrix4x4[1][3] = matrix[7];
+
+	matrix4x4[2][0] = matrix[8];
+	matrix4x4[2][1] = matrix[9];
+	matrix4x4[2][2] = matrix[10];
+	matrix4x4[2][3] = matrix[11];
+
+	matrix4x4[3][0] = matrix[12];
+	matrix4x4[3][1] = matrix[13];
+	matrix4x4[3][2] = matrix[14];
+	matrix4x4[3][3] = matrix[15];
+
+	Matrix4x4 newMatrix; newMatrix.setMatrix(matrix4x4);
+	Matrix4x4 scaleMatrix; scaleMatrix.setScale(this->scale);
+	Matrix4x4 transMatrix; transMatrix.setTranslation(this->position);
+
+    this->localMatrix = scaleMatrix * transMatrix * newMatrix;
+
+}
+
+float* AGameObject::getPhysicsLocalMatrix() {
+    Matrix4x4 allMatrix; allMatrix.setIdentity();
+	Matrix4x4 translationMatrix; translationMatrix.setIdentity();
+	translationMatrix.setTranslation(this->getPosition());
+	Matrix4x4 scaleMatrix; scaleMatrix.setScale(Vector3D::ones()); //physics 3D only accepts uniform scale for rigidbody
+	Vector3D rotation = this->getRotation();
+	Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.getX());
+	Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.getY());
+	Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.getZ());
+
+	//Scale --> Rotate --> Transform as recommended order.
+	Matrix4x4 rotMatrix; rotMatrix.setIdentity();
+    rotMatrix *= xMatrix * yMatrix * zMatrix;
+
+	allMatrix *= scaleMatrix * rotMatrix;
+	allMatrix *= translationMatrix;
+
+	return allMatrix.getMatrix();
 }

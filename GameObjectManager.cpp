@@ -13,7 +13,7 @@ void GameObjectManager::destroy() {
 	delete sharedInstance;
 }
 
-GameObject* GameObjectManager::findObjectByname(String name) {
+AGameObject* GameObjectManager::findObjectByname(String name) {
 	for(int i = 0; i < sharedInstance->object_list.size(); i++){
 		if(sharedInstance->object_list[i]->getName() == name){
 			return sharedInstance->object_list[i];
@@ -21,7 +21,7 @@ GameObject* GameObjectManager::findObjectByname(String name) {
 	}
 }
 
-std::vector<GameObject*> GameObjectManager::getAllObjects() {
+std::vector<AGameObject*> GameObjectManager::getAllObjects() {
 	return sharedInstance->object_list;
 }
 
@@ -43,13 +43,13 @@ void GameObjectManager::renderAll(int viewportWidth, int viewportHeight, VertexS
 	
 }
 
-void GameObjectManager::addObject(GameObject* gameObject) {
+void GameObjectManager::addObject(AGameObject* gameObject) {
 	sharedInstance->object_list.push_back(gameObject);
 }
 
 void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, size_t sizeShader) {
 	
-	GameObject* object = nullptr;
+	AGameObject* object = nullptr;
 	
 	switch (type)
 	{
@@ -81,7 +81,7 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 
 }
 
-void GameObjectManager::deleteObject(GameObject* gameObject) {
+void GameObjectManager::deleteObject(AGameObject* gameObject) {
 	for(int i = 0; i < sharedInstance->object_list.size(); i++){
 		if(sharedInstance->object_list[i] == gameObject){
 			//Remove the object
@@ -109,11 +109,11 @@ void GameObjectManager::setSelectedObject(String name)
 	}
 }
 
-void GameObjectManager::setSelectedObject(GameObject* gameObject) {
+void GameObjectManager::setSelectedObject(AGameObject* gameObject) {
 	sharedInstance->selectedObject = gameObject;
 }
 
-GameObject* GameObjectManager::getSelectedObject() {
+AGameObject* GameObjectManager::getSelectedObject() {
 	return sharedInstance->selectedObject;
 }
 

@@ -1,7 +1,7 @@
 #include "Cube.h"
 #include <iostream>
 
-Cube::Cube(std::string name, void *shader_byte_code, size_t size_shader) : GameObject(name) {
+Cube::Cube(std::string name, void *shader_byte_code, size_t size_shader) : AGameObject(name) {
     
 	this->vb = GraphicsEngine::get()->createVertexBuffer();
 	UINT size_list = ARRAYSIZE(vertex_list);
@@ -32,7 +32,7 @@ Cube::Cube(std::string name, void *shader_byte_code, size_t size_shader) : GameO
 Cube::~Cube() {
 	this->vb->release();
 	this->ib->release();
-	GameObject::~GameObject();
+	AGameObject::~AGameObject();
 }
 
 void Cube::update(float deltaTime) {
@@ -82,13 +82,13 @@ void Cube::draw(float width, float height,  VertexShader *vs, PixelShader *ps)
 	cc.m_world*=temp;
 
 	// * Rotation XYZ
-	temp.setRotationZ(this->rotation.m_z);
+	temp.setRotationZ(this->rotation.getX());
 	cc.m_world*=temp;
 
-	temp.setRotationY(this->rotation.m_y);
+	temp.setRotationY(this->rotation.getY());
 	cc.m_world*=temp;
 
-	temp.setRotationX(this->rotation.m_x);
+	temp.setRotationX(this->rotation.getZ());
 	cc.m_world*=temp;
 
 	// * Translate

@@ -1,6 +1,6 @@
 #pragma once
 #include "AUIScreen.h"
-#include "GameObject.h";
+#include "AGameObject.h";
 #include "GameObjectManager.h";
 
 
@@ -17,7 +17,7 @@ public:
 
 private:
 
-    std::vector<GameObject*> obj_list;
+    std::vector<AGameObject*> obj_list;
 
     bool scene_outline_open = true;
 

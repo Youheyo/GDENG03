@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "AGameObject.h"
 #include "GraphicsEngine.h"
 #include "ConstantBuffer.h"
 #include "VertexBuffer.h"
@@ -9,7 +9,7 @@
 #include "EngineTime.h"
 #include "SceneCameraHandler.h"
 
-class Cube : public GameObject{
+class Cube : public AGameObject{
 
 public:
     Cube(std::string name, void *shader_byte_code, size_t size_shader);

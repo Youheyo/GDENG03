@@ -7,6 +7,10 @@
 #include "SceneOutline.h"
 #include "Inspector.h"
 #include "EngineProfiler.h"
+#include <reactphysics3d/reactphysics3d.h>
+#include "PhysicsSystem.h"
+
+using namespace reactphysics3d;
 
 struct vertex {
 	Vector3D color;
@@ -36,53 +40,11 @@ AppWindow::~AppWindow()
 void AppWindow::onCreate()
 {
 	Window::onCreate();
-	GraphicsEngine::get()->init();
-	m_swap_chain = GraphicsEngine::get()->createSwapChain();
-
-	RECT rc = this->getClientWindowRect();
-	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-
-	void* shader_byte_code = nullptr;
-	size_t size_shader = 0;
-
-	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
-	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
-
-	GraphicsEngine::get()->releaseCompiledShader();	
-
-	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
-	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
-	
-	GraphicsEngine::get()->releaseCompiledShader();	
-
-    constant cc;
-	cc.m_time = 0;
-
-	m_rss_wire = GraphicsEngine::get()->createRasterizerState(true);
-	m_rss_solid = GraphicsEngine::get()->createRasterizerState(false);
-
-#pragma region Manager Initialization
-
-	// * GameObject Initializations
-	GameObjectManager::initialize();
-
-	// * Input System Initialization
-	InputSystem::initialize();
-	InputSystem::getInstance()->showCursor(true);
-
-	// * UI Initialization
-	UIManager::initialize(m_hwnd);
-	UINames names;
-	Toolbar* menu = new Toolbar(names.MENU_SCREEN, &wireMode);
-	SceneOutline* sceneOutline = new SceneOutline(names.HIERARCHY_SCREEN);
-	Inspector* inspector = new Inspector(names.INSPECTOR_SCREEN);
-	EngineProfiler* profiler = new EngineProfiler(names.PROFILER_SCREEN);
-
-	// * Scene Camera Initialization
-	SceneCameraHandler::initialize();
-#pragma endregion
+	initializeEngine();
+	initializeUI();
 
 #pragma region Cube Initialization
+
 #if 0
 
 	// * Parameters of cubes
@@ -129,12 +91,9 @@ void AppWindow::onCreate()
 		cube->setSpeed(rand() % 11 + 1);
 		this->object_list.push_back(cube);
 	}
-
 #endif
-#pragma endregion
 
-	m_cb = GraphicsEngine::get()->createConstantBuffer();
-	m_cb->load(&cc, sizeof(constant));
+#pragma endregion
 
 }
 
@@ -195,6 +154,60 @@ void AppWindow::onDestroy()
 	SceneCameraHandler::destroy();
 	GraphicsEngine::get()->release();
 
+}
+
+void AppWindow::initializeEngine()
+{
+	GraphicsEngine::get()->init();
+	m_swap_chain = GraphicsEngine::get()->createSwapChain();
+	
+	// * Input System Initialization
+	InputSystem::initialize();
+	InputSystem::getInstance()->showCursor(true);
+
+	RECT rc = this->getClientWindowRect();
+	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
+
+	void* shader_byte_code = nullptr;
+	size_t size_shader = 0;
+
+	GraphicsEngine::get()->compileVertexShader(L"VertexShader.hlsl", "vsmain", &shader_byte_code, &size_shader);
+	m_vs = GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
+
+	GraphicsEngine::get()->releaseCompiledShader();	
+
+	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
+	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
+	
+	GraphicsEngine::get()->releaseCompiledShader();	
+
+	m_rss_wire = GraphicsEngine::get()->createRasterizerState(true);
+	m_rss_solid = GraphicsEngine::get()->createRasterizerState(false);
+
+	BaseComponentSystem::initialize();
+
+	// * GameObject Initializations
+	GameObjectManager::initialize();
+
+	// * Scene Camera Initialization
+	SceneCameraHandler::initialize();
+
+	constant cc;
+	cc.m_time = 0;
+
+	m_cb = GraphicsEngine::get()->createConstantBuffer();
+	m_cb->load(&cc, sizeof(constant));
+}
+
+void AppWindow::initializeUI()
+{
+	// * UI Initialization
+	UIManager::initialize(m_hwnd);
+	UINames names;
+	Toolbar* menu = new Toolbar(names.MENU_SCREEN, &wireMode);
+	SceneOutline* sceneOutline = new SceneOutline(names.HIERARCHY_SCREEN);
+	Inspector* inspector = new Inspector(names.INSPECTOR_SCREEN);
+	EngineProfiler* profiler = new EngineProfiler(names.PROFILER_SCREEN);
 }
 
 void AppWindow::onKeyDown(int key)

@@ -3,15 +3,15 @@
 #include <string>
 #include <unordered_map>
 #include "EngineTime.h"
-#include "GameObject.h"
+#include "AGameObject.h"
 #include "Cube.h"
 
 class GameObjectManager{
 
 public:
     typedef std::string String;
-    typedef std::vector<GameObject*> List;
-    typedef std::unordered_map<String, GameObject*> HashTable;
+    typedef std::vector<AGameObject*> List;
+    typedef std::unordered_map<String, AGameObject*> HashTable;
 
     enum PrimitiveType{
         NONE,
@@ -24,18 +24,18 @@ public:
     static void initialize();
     static void destroy();
 
-    GameObject* findObjectByname(String name);
+    AGameObject* findObjectByname(String name);
     List getAllObjects();
     int activeObjects();
     void updateAll();
     void renderAll(int viewportWidth, int viewportHeight, VertexShader* vs, PixelShader* ps);
-    void addObject(GameObject* gameObject);
+    void addObject(AGameObject* gameObject);
     void createObject(PrimitiveType type, void* shaderByteCode, size_t sizeShader);
-    void deleteObject(GameObject* gameObject);
+    void deleteObject(AGameObject* gameObject);
     void deleteObjectByname(String name);
     void setSelectedObject(String name);
-    void setSelectedObject(GameObject* gameObject);
-    GameObject* getSelectedObject();
+    void setSelectedObject(AGameObject* gameObject);
+    AGameObject* getSelectedObject();
 
 private:
 
@@ -47,6 +47,6 @@ private:
     static GameObjectManager* sharedInstance;
 
     List object_list;
-    GameObject* selectedObject;
+    AGameObject* selectedObject;
 
 };

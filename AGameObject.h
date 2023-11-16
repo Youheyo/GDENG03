@@ -44,6 +44,9 @@ public:
     void setRotation(float x, float y, float z);
     Vector3D getRotation();
 
+    void recomputeMatrix(float matrix[16]);
+    
+    float* getPhysicsLocalMatrix();
 
 	bool canAnimate = false;
     void setEnabled(bool enable);

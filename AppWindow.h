@@ -18,6 +18,7 @@
 #include "UIManager.h"
 #include "GameObjectManager.h"
 #include "RasterizerState.h"
+#include "PhysicsSystem.h"
 
 class AppWindow : public Window, public InputListener
 {
@@ -31,6 +32,9 @@ public:
 	virtual void onUpdate() override;
 	virtual void onDestroy() override;
 	
+	void initializeEngine();
+	void initializeUI();
+
 	LONG getWidth();
 	LONG getHeight();
 
@@ -66,7 +70,7 @@ private:
 	// * Cube Objects
 	int target_amt = 1;
 	int curr_amt = 0;
-	std::vector<GameObject*> object_list;
+	std::vector<AGameObject*> object_list;
 	bool canAnimate = true;
 
 	bool show_demo_window = false;

@@ -20,18 +20,18 @@ public:
         m_mat[3][3] = 1;
     }
 
-    void setTranslation(const Vector3D& translation){
+    void setTranslation(Vector3D translation){
         setIdentity();
-        m_mat[3][0] = translation.m_x;
-        m_mat[3][1] = translation.m_y;
-        m_mat[3][2] = translation.m_z;
+        m_mat[3][0] = translation.getX();
+        m_mat[3][1] = translation.getY();
+        m_mat[3][2] = translation.getZ();
     }
     
-    void setScale(const Vector3D& scale){
+    void setScale(Vector3D scale){
         setIdentity();
-        m_mat[0][0] = scale.m_x;
-        m_mat[1][1] = scale.m_y;
-        m_mat[2][2] = scale.m_z;
+        m_mat[0][0] = scale.getX();
+        m_mat[1][1] = scale.getY();
+        m_mat[2][2] = scale.getZ();
     }
 
     void setRotationX(float x){
@@ -140,10 +140,32 @@ public:
         setMatrix(out);
     }
 
+    Matrix4x4 operator * (const Matrix4x4& matrix){
+        Matrix4x4 out;
+
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 4; j++){
+                out.m_mat[i][j] = 
+                m_mat[i][0] * matrix.m_mat[0][j] + m_mat[i][1] * matrix.m_mat[1][j] + 
+                m_mat[i][2] * matrix.m_mat[2][j] + m_mat[i][3] * matrix.m_mat[3][j];
+            }
+        }
+
+    return out;
+
+    }
+
     void setMatrix(const Matrix4x4& matrix){
         ::memcpy(m_mat, matrix.m_mat, sizeof(float) * 16);
     }
 
+    void setMatrix(float matrix[4][4]){
+        ::memcpy(m_mat, matrix, sizeof(float) * 16);
+    }
+
+    float* getMatrix(){
+        return *this->m_mat;
+    }
     void setOrthoLH(float width, float height, float near_plane, float far_plane){
         setIdentity();
         m_mat[0][0] = 2.0f / width;
@@ -164,6 +186,15 @@ public:
 		m_mat[3][2] = (-znear*zfar)/ (zfar - znear);
 	}
 
-public:
+private:
+
+    void matrixInitialize(){
+    for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			this->m_mat[i][j] = 0.0f;
+		}
+	}
+    }
+
     float m_mat[4][4] = {};
 };

@@ -31,8 +31,25 @@ public:
 		return Vector3D(m_x+vec.m_x, m_y+vec.m_y, m_z+vec.m_z);
 	}
 
+    static Vector3D ones(){
+        return Vector3D(1.0f, 1.0f, 1.0f);
+    }
+    static Vector3D zeros(){
+        return Vector3D(0.0f, 0.0f, 0.0f);
+    }
+
     ~Vector3D(){}
 
-public:
+    float getX(){
+        return m_x;
+    }
+    float getY(){
+        return m_y;
+    }
+    float getZ(){
+        return m_z;
+    }
+
+private:
     float m_x, m_y, m_z;
 };
