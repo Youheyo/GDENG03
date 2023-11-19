@@ -5,6 +5,7 @@
 #include "EngineTime.h"
 #include "AGameObject.h"
 #include "Cube.h"
+#include "Plane.h"
 
 class GameObjectManager{
 
@@ -46,6 +47,7 @@ private:
 
     static GameObjectManager* sharedInstance;
 
+    HashTable object_map;
     List object_list;
     AGameObject* selectedObject;
 

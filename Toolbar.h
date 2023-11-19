@@ -10,6 +10,8 @@ public:
 
     void drawUI() override;
     
+    void spawnPhysicsCubes(int amt = 50);
+
 private:
 
     String name;

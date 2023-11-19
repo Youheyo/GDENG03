@@ -60,17 +60,6 @@ void DeviceContext::setRSState(RasterizerState* rss)
 
 }
 
-
-void DeviceContext::setShaderResource(ID3D11ShaderResourceView *srv)
-{
-	this->srv = srv;
-}
-
-ID3D11ShaderResourceView* DeviceContext::getShaderResource()
-{
-	return srv;
-}
-
 void DeviceContext::setViewportSize(UINT width, UINT height)
 {
 

@@ -44,6 +44,22 @@ void GameObjectManager::renderAll(int viewportWidth, int viewportHeight, VertexS
 }
 
 void GameObjectManager::addObject(AGameObject* gameObject) {
+
+	if(sharedInstance->object_map[gameObject->getName()] != NULL){
+		int count = 1;
+		String string = gameObject->getName() + std::to_string(count);
+		while (sharedInstance->object_map[string] != NULL)
+		{
+			count++;
+			string = gameObject->getName() + std::to_string(count);
+		}
+		
+		gameObject->setName(string);
+		sharedInstance->object_map[string] = gameObject;
+	}
+	else{
+		sharedInstance->object_map[gameObject->getName()] = gameObject;
+	}
 	sharedInstance->object_list.push_back(gameObject);
 }
 
@@ -59,8 +75,8 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 			break;
 		case PLANE:
 			std::cout << "Plane Initialized" << std::endl;
-			object = new Cube("Plane", shaderByteCode, sizeShader);
-			object->setScale(1,0,1);
+			object = new Plane("Plane", shaderByteCode, sizeShader);
+			// object->setScale(1,0,1);
 			break;
 		case SPHERE:
 			std::cout << "Sphere Initialized" << std::endl;
@@ -82,30 +98,36 @@ void GameObjectManager::createObject(PrimitiveType type, void* shaderByteCode, s
 }
 
 void GameObjectManager::deleteObject(AGameObject* gameObject) {
-	for(int i = 0; i < sharedInstance->object_list.size(); i++){
-		if(sharedInstance->object_list[i] == gameObject){
-			//Remove the object
+
+	sharedInstance->object_map.erase(gameObject->getName());
+
+	int index = -1;
+	for (int i = 0; i < sharedInstance->object_list.size(); i++) {
+		if (sharedInstance->object_list[i] == gameObject) {
+			index = i;
 			break;
 		}
 	}
+
+	if (index != -1) {
+		sharedInstance->object_list.erase(sharedInstance->object_list.begin() + index);
+	}
+
+	delete gameObject;
 }
 
 void GameObjectManager::deleteObjectByname(String name) {
-	for(int i = 0; i < sharedInstance->object_list.size(); i++){
-		if(sharedInstance->object_list[i]->getName() == name){
-			//Remove the object
-			break;
-		}
+		AGameObject* object = sharedInstance->findObjectByname(name);
+
+	if (object != NULL) {
+		sharedInstance->deleteObject(object);
 	}
 }
 
 void GameObjectManager::setSelectedObject(String name)
 {
-	for(int i = 0 ; i < sharedInstance->object_list.size(); i++){
-		if(sharedInstance->object_list[i]->getName() == name){
-			sharedInstance->selectedObject = sharedInstance->object_list[i];
-			break;
-		}
+	if(sharedInstance->object_map[name] != NULL){
+		sharedInstance->setSelectedObject(sharedInstance->object_map[name]);
 	}
 }
 

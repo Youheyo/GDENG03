@@ -28,6 +28,7 @@ struct constant{
     ~AGameObject();
 
     std::string getName();
+    void setName(std::string name);
     virtual void update(float deltaTime) = 0;
     virtual void draw(float width, float height, VertexShader *vs, PixelShader *ps) = 0;
     
@@ -44,6 +45,7 @@ public:
     void setRotation(float x, float y, float z);
     Vector3D getRotation();
 
+    void updateMatrix();
     void recomputeMatrix(float matrix[16]);
     
     float* getPhysicsLocalMatrix();

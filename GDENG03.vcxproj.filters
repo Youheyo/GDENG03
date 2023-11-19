@@ -180,6 +180,9 @@
     <ClCompile Include="BaseComponentSystem.cpp">
       <Filter>Engine\ComponentSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="BaseComponentSystem.h">
       <Filter>Engine\ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Engine\GraphicsEngine\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

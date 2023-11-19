@@ -125,6 +125,8 @@ void AppWindow::onUpdate()
 	// 	object_list[x]->draw();
 	// }
 
+	BaseComponentSystem::getInstance()->getPhysicsSystem()->updateAllComponents();
+
 	GameObjectManager::getInstance()->updateAll();
 	GameObjectManager::getInstance()->renderAll(getWidth(), getHeight(), m_vs, m_ps);
 

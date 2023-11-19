@@ -60,36 +60,9 @@ bool SwapChain::init(HWND hwnd, UINT width, UINT height){
 	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	descDepth.CPUAccessFlags = 0;
 	descDepth.MiscFlags = 0;
-	
-	texture = nullptr;
-	hr = device->CreateTexture2D( &descDepth, NULL, &texture);
-	if(FAILED(hr)){
-		return false;
-	}
-	
-	D3D11_SHADER_RESOURCE_VIEW_DESC shaderDesc = {};
-	shaderDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	shaderDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	shaderDesc.Texture2D.MipLevels = 1;
-	shaderDesc.Texture2D.MostDetailedMip = 0;
-
-	hr = device->CreateShaderResourceView(texture, NULL, &srv);
-	if(FAILED(hr)){
-		return false;
-	}
-
-	GraphicsEngine::get()->getImmediateDeviceContext()->setShaderResource(srv);
 
 	HRESULT depthStencilHr = device->CreateDepthStencilView(texture, NULL, &this->m_dsv);
 	texture->Release();
-
-	D3D11_RASTERIZER_DESC wireframeDesc;
-    ZeroMemory(&wireframeDesc, sizeof(wireframeDesc));
-    wireframeDesc.FillMode = D3D11_FILL_WIREFRAME;
-    wireframeDesc.CullMode = D3D11_CULL_BACK;
-    wireframeDesc.FrontCounterClockwise = false;
-    wireframeDesc.DepthClipEnable = true;
-    device->CreateRasterizerState(&wireframeDesc, &rsr);
 
 	return true;
 }
@@ -116,9 +89,4 @@ ID3D11RenderTargetView *SwapChain::getRenderTargetView()
 ID3D11DepthStencilView *SwapChain::getDepthStencilView()
 {
     return m_dsv;
-}
-
-ID3D11ShaderResourceView *SwapChain::getShaderResourceView()
-{
-	return srv;
 }

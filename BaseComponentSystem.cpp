@@ -1,4 +1,5 @@
 #include "BaseComponentSystem.h"
+#include "PhysicsSystem.h"
 
 BaseComponentSystem* BaseComponentSystem::sharedInstance = NULL;
 
@@ -20,7 +21,7 @@ PhysicsSystem* BaseComponentSystem::BaseComponentSystem::getPhysicsSystem() {
 }
 
 BaseComponentSystem::BaseComponentSystem() {
-    
+    physicsSystem = new PhysicsSystem();
 }
 
 BaseComponentSystem::~BaseComponentSystem() {

@@ -1,6 +1,9 @@
 #include "Toolbar.h"
 #include <iostream>
 #include "SceneCameraHandler.h"
+#include "BaseComponentSystem.h"
+#include "PhysicsSystem.h"
+#include "PhysicsComponent.h"
 // * Appears at the top of window
 
 Toolbar::Toolbar(String name, bool* wiremode) : AUIScreen(name) {
@@ -51,6 +54,23 @@ void Toolbar::drawUI() {
 			ImGui::EndMenu(); // ? End for GameObject Menu
 			}
 
+			if(ImGui::BeginMenu("Physics Object")){
+				if(ImGui::MenuItem("Create Physics Cube")){
+					spawnPhysicsCubes(10);
+				}
+			if(ImGui::MenuItem("Create Physics Plane")){
+				GameObjectManager* manager = GameObjectManager::getInstance();
+					// manager->createObject(GameObjectManager::PLANE, nullptr, 0);
+					manager->createObject(GameObjectManager::CUBE, nullptr, 0);
+					manager->getSelectedObject()->setPosition(0,-5,0);
+					manager->getSelectedObject()->setScale(64,0.1,64);
+
+					PhysicsComponent* physComponent = new PhysicsComponent("PhysComp Plane", manager->getSelectedObject());
+					physComponent->getRigidBody()->setType(BodyType::STATIC);
+				}
+			ImGui::EndMenu();
+			}
+			
 			if (ImGui::BeginMenu("View Modes"))
 			{
 				ImGui::SeparatorText("Projection Modes"); // view/projection modes
@@ -84,6 +104,20 @@ void Toolbar::drawUI() {
 			}
 	ImGui::EndMainMenuBar();
 
+	}
+}
+
+void Toolbar::spawnPhysicsCubes(int amt)
+{
+
+	GameObjectManager* manager = GameObjectManager::getInstance();
+	AGameObject* object;
+	for(int i = 0; i < amt; i++){
+		manager->createObject(GameObjectManager::CUBE, nullptr, 0);
+		object = manager->getSelectedObject();
+		object->setName("Physics Cube");
+		object->setPosition(0, 5, 0);
+		new PhysicsComponent("PhysComp Cube", object);
 	}
 
 }

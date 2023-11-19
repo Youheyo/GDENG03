@@ -32,9 +32,6 @@ public:
 
 	void setRSState(RasterizerState* rasterState);
 
-	void setShaderResource(ID3D11ShaderResourceView* srv);
-	ID3D11ShaderResourceView* getShaderResource();
-
 	void setViewportSize(UINT width, UINT height);
 
 	void setVertexShader(VertexShader* vertex_shader);

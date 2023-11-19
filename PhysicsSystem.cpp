@@ -2,6 +2,7 @@
 #include "PhysicsComponent.h"
 #include <iostream>
 #include "EngineTime.h"
+#include "AGameObject.h"
 
 PhysicsSystem::PhysicsSystem() {
     std::cout << "Loading Physics System. \n";

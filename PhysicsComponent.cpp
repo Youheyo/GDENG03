@@ -23,7 +23,6 @@ PhysicsComponent::PhysicsComponent(String name, AGameObject* owner) : AComponent
 	this->rigidBody->updateMassPropertiesFromColliders();
 	this->rigidBody->setMass(this->mass);
 	this->rigidBody->setType(BodyType::DYNAMIC);
-
 	transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
@@ -40,8 +39,13 @@ void PhysicsComponent::perform(float deltaTime) {
     const Transform transform = this->rigidBody->getTransform();
 	float matrix[16];
 	transform.getOpenGLMatrix(matrix);
-
+	
 	this->getOwner()->recomputeMatrix(matrix);
+}
+
+void PhysicsComponent::setGravity(bool gravity)
+{
+	this->rigidBody->enableGravity(gravity);
 }
 
 RigidBody* PhysicsComponent::getRigidBody() {
